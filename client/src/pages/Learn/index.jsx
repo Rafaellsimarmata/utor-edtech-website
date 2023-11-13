@@ -249,7 +249,7 @@ const Learn = () => {
           <div className="right">
             <div className="price">
               <h3>💎 List Materi ✨</h3>
-              <h2>6 video</h2>
+              <h2>{listMateri.length} video</h2>
             </div>
             <p>
               Bring your design in Fully responsive Web App with advance React

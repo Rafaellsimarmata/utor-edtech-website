@@ -40,17 +40,53 @@ const getListMateri = async (req, res) => {
   }
 };
 
-// const getUrlVid = async (req, res) => {
-//   const { id } = req.params;
+const createPath = async (req, res) => {
+  const {
+    namePath, desc, peserta, peluang, level, benefit, category, imgUrl,
+  } = req.body;
 
-//   try {
-//     const pathDetail = await learnPageService.getUrlVid(id);
-//     return res.status(200).json(pathDetail);
-//   } catch (error) {
-//     throw new ErrorHandler(error.statusCode, 'Error fetching data');
-//   }
-// };
+  // const { id: idMentor } = req.user;
+  // console.log(idMentor);
+  const idMentor = 'dgrCUzi6Cu';
+
+  try {
+    const pathDetail = await learnPageService
+      .createPath({
+        namePath, desc, peserta, peluang, level, benefit, category, imgUrl, idMentor,
+      });
+    return res.status(200).json(pathDetail);
+  } catch (error) {
+    throw new ErrorHandler(error.statusCode, 'Error adding data');
+  }
+};
+
+const createTopicPath = async (req, res) => {
+  const { id } = req.params;
+  const { judul, descTopic, imgUrl } = req.body;
+  try {
+    const pathDetail = await learnPageService.createTopicPath({
+      id, judul, descTopic, imgUrl,
+    });
+    return res.status(200).json(pathDetail);
+  } catch (error) {
+    throw new ErrorHandler(error.statusCode, 'Error adding data');
+  }
+};
+
+const createMateriTopic = async (req, res) => {
+  const { id } = req.params;
+  const { judulMateri, urlVid, desc } = req.body;
+  try {
+    const pathDetail = await learnPageService.createMateriTopic({
+      id, judulMateri, urlVid, desc,
+    });
+    return res.status(200).json(pathDetail);
+  } catch (error) {
+    throw new ErrorHandler(error.statusCode, 'Error adding data');
+  }
+};
 
 export {
-  learnPath, getDetailPath, getItemsPath, getListMateri,
+  learnPath, getDetailPath, getItemsPath, getListMateri, createPath, createTopicPath,
+  createMateriTopic,
 };
