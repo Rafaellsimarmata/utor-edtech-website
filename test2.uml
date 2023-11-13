@@ -1,0 +1,62 @@
+@startuml
+
+entity Customer {
+    email_address : varchar <PK>
+    --
+    shipping_address:varchar
+    credit_Card:varchar
+}
+
+object Single_Sale {
+    id_videos: text <FK>
+    email_address : text <FK>
+    --
+    shipping_address:varchar
+    jumlah_video : number
+    charge : number
+}
+
+entity Videos {
+    id_videos : varchar <PK>
+    --
+    video_format : varchar
+    price : number
+}
+
+entity Cart {
+    id_videos : varchar <FK>
+    email_address : varchar <FK>
+    --
+    jumlah:number
+}
+
+
+
+Customer ||--|| Customer
+note on link
+    Update 
+end note
+
+Customer }|--|| Single_Sale
+note on link
+    Single Sale 
+end note
+
+Videos ||--|| Single_Sale
+note on link
+    Single Sale 
+end note
+
+Customer }|--|| Cart
+note on link
+    Add Items 
+end note
+
+Cart ||--|| Cart
+note on link
+    Checkout and Delete 
+end note
+
+
+
+@enduml

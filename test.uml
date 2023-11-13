@@ -1,0 +1,118 @@
+@startuml
+
+entity Users {
+    Id : varchar <PK>
+    kelas-terdaftar : varchar <FK>
+    --
+    nama : text
+    email : varchar
+    email-reff : varchar
+    password : varchar
+    balance : number
+}
+
+entity Kelas {
+    Id-path : varchar <PK>
+    --
+    nama-path : text
+    tipe-path : text
+    jumlah-peserta : number
+    jumlah-topik : number
+    jumlah-materi : number
+}
+
+entity Mentor {
+    Id-mentor : varchar <PK>
+    --
+    email-mentor : text
+    nama-mentor : text
+}
+
+entity Topik {
+    Id-topik : varchar <PK>
+    --
+    Id-path : varchar <FK>
+    --
+    judul-topik : varchar
+}
+
+entity sub_topik {
+    id-subtopik : varchar <PK>
+    --
+    id-topik : varchar <FK>
+    --
+    judul-subtopik : varchar
+    type : varchar
+}
+
+entity videos {
+    id-video : varchar <PK>
+    --
+    id-subtopik : varchar <FK>
+    --
+    judul-subtopik : varchar
+    link-video : varchar
+}
+
+entity submission {
+    id-submission : varchar <PK>
+    --
+    id-subtopik : varchar <FK>
+    --
+    judul-submission : varchar
+    link-submission : varchar
+}
+
+object Membeli {
+    id_subscription: text <FK>
+    email_pembeli : text <FK>
+    --
+    waktu beli : date
+    expired date : date
+}
+
+object Involve {
+    Id-path : varchar <FK>
+    Id-mentor : varchar <FK>
+    --
+    nama-path : text
+    jumlah-peserta : number
+}
+
+Users }o-- Involve
+Mentor ||-- Involve
+Kelas }o-- Involve
+
+Users }o-- Membeli
+Kelas }|-- Membeli
+
+
+Kelas ||--|{ Topik
+note on link
+    Memiliki
+end note
+
+Topik ||--|{ sub_topik
+note on link
+    Memiliki
+end note
+
+sub_topik ||--|{ videos
+note on link
+    Memiliki
+end note
+
+sub_topik ||--|{ submission
+note on link
+    Memiliki
+end note
+
+
+Users ||--o{ Users
+note on link
+    Mereferensikan
+end note
+
+
+
+@enduml
