@@ -12,8 +12,6 @@ const PathProvider = ({ children }) => {
   const [pathId, setPathId] = useState(null);
   const [listMateri, setListMateri] = useState(null);
   const [idTopic, setIdTopic] = useState(null);
-  const [currVid, setCurrVid] = useState(null);
-  const [idMateri, setIdMateri] = useState(null);
 
   useEffect(() => {
     pathService.getPathAll().then((response) => {
@@ -32,12 +30,6 @@ const PathProvider = ({ children }) => {
       setItemsPath(response.data);
     });
   }, [pathId]);
-
-  useEffect(() => {
-    pathService.getListMateri(idTopic).then((response) => {
-      setListMateri(response.data);
-    });
-  }, [idTopic]);
 
   useEffect(() => {
     pathService.getListMateri(idTopic).then((response) => {

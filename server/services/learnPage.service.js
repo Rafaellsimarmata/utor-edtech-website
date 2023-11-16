@@ -50,7 +50,9 @@ class LearnPageService {
 
   createTopicPath = async (topicData) => {
     try {
+      console.log(topicData);
       return await addTopicPathDb(topicData);
+      console.log('db create');
     } catch (error) {
       throw new ErrorHandler(error.statusCode, error.message);
     }

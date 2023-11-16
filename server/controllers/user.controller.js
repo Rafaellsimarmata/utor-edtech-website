@@ -14,6 +14,8 @@ const createUser = async (req, res) => {
   } = req.body;
   const hashedPassword = hashPassword(password);
 
+  console.log('controller');
+
   const user = await userService.createUser({
     hashedPassword,
     email,

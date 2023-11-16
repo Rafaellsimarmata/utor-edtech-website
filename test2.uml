@@ -30,8 +30,6 @@ entity Cart {
     jumlah:number
 }
 
-
-
 Customer ||--|| Customer
 note on link
     Update 

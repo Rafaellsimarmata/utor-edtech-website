@@ -92,8 +92,8 @@
       }
 
       .videoplayer {
-        position:sticky;
-        margin-bottom : 380px;
+        position: sticky;
+        margin-bottom: 380px;
       }
 
       .seller {
@@ -310,7 +310,7 @@
       }
 
       button {
-        background-color: #000;
+        background-color: black;
         padding: 10px;
         color: white;
         font-weight: 500;
@@ -320,6 +320,38 @@
         &:hover {
           transition: ease 100ms;
           opacity: 0.8;
+          background-color: white;
+          color: black;
+        }
+      }
+    }
+  }
+}
+
+.gigs {
+  .container {
+    h1 {
+      display: flex;
+      gap: 15px;
+      button {
+        background-color: white;
+        padding: 10px;
+        color: white;
+        font-weight: 500;
+        border: none;
+        font-size: 18px;
+        cursor: pointer;
+        &:hover {
+          transition: ease 100ms;
+          opacity: 0.8;
+          background-color: black;
+          a {
+            color: white;
+          }
+        }
+
+        Link {
+          color: black;
         }
       }
     }

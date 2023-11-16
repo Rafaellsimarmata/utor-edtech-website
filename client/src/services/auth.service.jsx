@@ -46,9 +46,9 @@ class AuthService {
     });
   }
 
-  register(username, email, password) {
-    return API.post("/auth/signup", {
-      username,
+  register(name, email, password) {
+    return API.post("/auth/register", {
+      name,
       email,
       password,
     });

@@ -2,6 +2,7 @@
 /* eslint-disable import/extensions */
 /* eslint-disable import/no-unresolved */
 import { Router } from 'express';
+import multer from 'multer';
 import {
   learnPath, getDetailPath, getItemsPath, getListMateri, createPath, createTopicPath,
   createMateriTopic,

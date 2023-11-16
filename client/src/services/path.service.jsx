@@ -23,6 +23,26 @@ class PathService {
   getListMateri(id) {
     return API.get(`/getListMateri/${id}`);
   }
+
+  createPath(pathData) {
+    return API.post("/addPath", {
+      ...pathData,
+    });
+  }
+
+  createTopicPath(topicData, idPath) {
+    return API.post(`/addTopicPath/${idPath}`, {
+      ...topicData,
+    });
+  }
+
+  createMateriTopic(materiData, idTopic) {
+    // console
+    console.log(materiData);
+    return API.post(`/addMateriTopic/${idTopic}`, {
+      ...materiData,
+    });
+  }
 }
 
 export default new PathService();

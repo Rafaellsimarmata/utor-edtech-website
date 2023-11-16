@@ -1,19 +1,20 @@
 /* eslint-disable react/prop-types */
 
-import { PlayBtn, CheckCircleFill, CheckCircle } from "react-bootstrap-icons";
+import { PlayBtn, Trash } from "react-bootstrap-icons";
 import { Link, Navigate } from "react-router-dom";
 import "./Gig.scss";
 
-const VideoCard = ({ item, setcurrMateri }) => {
+const VideoCard = ({ item, buttonFunc }) => {
   return (
-    <button onClick={setcurrMateri}>
+    <div className="item">
       <div className="judulvideo">
-        <PlayBtn /> {item.judul_materi}
+        <PlayBtn />
+        <span>{item.judul_materi}</span>
       </div>
-      <div className="check">
-        <CheckCircle />
-      </div>
-    </button>
+      <button onClick={buttonFunc}>
+        <Trash />
+      </button>
+    </div>
   );
 };
 

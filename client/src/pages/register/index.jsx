@@ -1,109 +1,149 @@
-// import NavbarComponent from "../../components/Navbar";
-// import FooterComponent from "../../components/footer";
-// import { useState } from "react";
+import {
+  useGoogleLogin,
+  GoogleOAuthProvider,
+  GoogleLogin,
+  useGoogleOneTapLogin,
+} from "@react-oauth/google";
+// import { Button, HelperText, Input, Label } from "@windmill/react-ui";
+// import ForgotPasswordModal from "../../components/ForgotPasswordModal";
+import { useUser } from "../../context/userContext";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { Link, Navigate, useLocation } from "react-router-dom";
+// import PulseLoader from "react-spinners/PulseLoader";
+import authService from "../../services/auth.service";
 import "./login-style.css";
-// import { toast } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
 
-// eslint-disable-next-line react/prop-types
-const RegisterPage = ({ setAuth }) => {
-  // const [inputs, setInputs] = useState({
-  //   email: "",
-  //   name: "",
-  //   password: "",
-  // });
+const LoginPage = () => {
+  const { isLoggedIn, setUserState } = useUser();
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [redirectToReferrer, setRedirectToReferrer] = useState(false);
+  const { state } = useLocation();
 
-  // const googleAuth = async () => {
-  //   window.open(`http://localhost:3009/google/callback`, "_self");
-  // };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      name: "",
+      email: "",
+      password: "",
+    },
+  });
 
-  // const { email, name, password } = inputs;
+  const login = useGoogleLogin({
+    onSuccess: (codeResponse) => handleGoogleLogin(codeResponse),
+    onError: (error) => console.log("Login Failed:", error),
+    flow: "auth-code",
+  });
 
-  // const onChange = (e) =>
-  //   setInputs({ ...inputs, [e.target.name]: e.target.value });
+  async function handleGoogleLogin(googleData) {
+    try {
+      console.log(googleData);
+      const data = await authService.googleLogin(googleData.code);
+      toast.success("Login successful 🔓");
+      setUserState(data);
+      setRedirectToReferrer(true);
+    } catch (error) {
+      console.log("getting error");
+      console.log(error);
+      toast.error("Could not login with Google 😢");
+    }
+  }
 
-  // const onSubmitForm = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     const body = { email, name, password };
-  //     const response = await fetch("http://localhost:3009/register", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-type": "application/json",
-  //       },
-  //       body: JSON.stringify(body),
-  //     });
+  const onSubmit = async (data) => {
+    const { name, email, password } = data;
 
-  //     const parseRes = await response.json();
+    try {
+      setError("");
+      setIsLoading(true);
+      const data = await authService.register(name, email, password);
+      console.log(data);
+      toast.success("Register successful 🔓");
 
-  //     if (parseRes.status !== 401) {
-  //       toast.success("Registered Successfully");
-  //       localStorage.setItem("token", parseRes);
-  //       console.log("stored");
-  //       setAuth(true);
-  //     } else {
-  //       let signMessage = document.getElementById("message");
-  //       signMessage.innerHTML = parseRes.message;
-  //       signMessage.style.color = "red";
-  //       setAuth(false);
-  //     }
-  //   } catch (err) {
-  //     console.error(err.message);
-  //   }
-  // };
+      setTimeout(() => {
+        setUserState(data);
+        setRedirectToReferrer(true);
+        setIsLoading(false);
+      }, 1500);
+    } catch (error) {
+      setIsLoading(false);
+      setError(error.response?.data.message);
+      console.log(error.response?.data.message);
+    }
+  };
+
+  if (redirectToReferrer) {
+    console.log("redirect page");
+    return <Navigate to={state?.from || "/"} />;
+  }
+  if (isLoggedIn) {
+    return <Navigate to={state?.from || "/"} />;
+  }
 
   return (
-    <>
-      <div className="login-container">
-        <h1>Register</h1>
-        <p id="message"></p>
+    <div className="login-container">
+      <h1>Register</h1>
+      <p id="message"></p>
+      <br />
+      <form onSubmit={handleSubmit(onSubmit)} method="post">
+        <label htmlFor="name">Full Name</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          {...register("name", {
+            required: true,
+          })}
+          placeholder="Enter a valid Name"
+        />
+
+        <label htmlFor="email">Email / Username</label>
+        <input
+          type="text"
+          id="email"
+          name="email"
+          {...register("email", {
+            required: true,
+            // eslint-disable-next-line no-useless-escape
+            pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+          })}
+          placeholder="Enter a valid email"
+        />
+
+        <label htmlFor="password">Password</label>
+        <input
+          type="password"
+          name="password"
+          placeholder="Your password.."
+          {...register("password", { required: true })}
+        />
+
+        <button type="submit">Register</button>
         <br />
-        <form method="post">
-          <label htmlFor="name">Nama Lengkap</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={name}
-            placeholder="Your name.."
-            onChange={(e) => onChange(e)}
-          />
 
-          <label htmlFor="email">Email / Username</label>
-          <input
-            type="text"
-            id="email"
-            name="email"
-            // value={email}
-            placeholder="Your email.."
-            onChange={(e) => onChange(e)}
-          />
+        <p>or</p>
+        <br />
+        <br />
 
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            // value={password}
-            placeholder="Your password.."
-            onChange={(e) => onChange(e)}
-          />
-
-          <button type="submit">Register</button>
-          <br />
-
-          <p>or</p>
-          <br />
-          <br />
-
-          <br />
-        </form>
-        <button type="google">
-          Register with Google
+        <button
+          type="google"
+          onClick={() => {
+            login();
+          }}
+        >
+          Sign in with Google
         </button>
-      </div>
-    </>
+        <br />
+        <p>
+          Sudah punya akun ? <Link to="/login">Login</Link>{" "}
+        </p>
+      </form>
+    </div>
   );
 };
 
-export default RegisterPage;
+export default LoginPage;

@@ -1,0 +1,118 @@
+.add {
+  display: flex;
+  justify-content: center;
+
+  .container {
+    width: 1400px;
+    padding: 50px 0px;
+
+    .headerr {
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      margin-bottom: 20px;
+
+      h1 {
+        width: max-content;
+        color: black;
+        font-weight: 300;
+        margin: 0 20px 0 0;
+      }
+
+      button {
+        padding: 3px 6px;
+        color: white;
+        background-color: black;
+        // &:hover {
+        //   transition: ease 100ms;
+        //   opacity: 0.8;
+        //   background-color: white;
+        //   color: black;
+        // }
+      }
+    }
+
+    .sections {
+      display: flex;
+      justify-content: space-between;
+      gap: 100px;
+
+      .gigCard{
+        .info{
+          button{
+            background-color: red;
+            height: 60px;
+          }
+        }
+      }
+
+      .list-materi {
+        display: flex;
+        flex-direction: column;
+
+        .item {
+          display: flex;
+          border: 1px solid;
+          justify-content: space-between;
+          align-items: center;
+          font-size: 18px;
+          padding: 0 20px;
+          text-align: left;
+          margin-bottom: 20px;
+          width: 300px;
+
+          .judulvideo {
+            display: flex;
+            align-items: center;
+            svg {
+              margin-right: 10px;
+            }
+          }
+
+          button {
+            color: red;
+            border: none;
+            cursor: pointer;
+            svg{
+              font-size: 18px;
+            }
+          }
+        }
+      }
+
+      label {
+        color: gray;
+        font-size: 18px;
+      }
+
+      form {
+        width: 50%;
+      }
+
+      .info,
+      .details {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        justify-content: space-between;
+
+        input,
+        select,
+        textarea {
+          padding: 20px;
+        }
+
+        button {
+          border: none;
+          padding: 20px;
+          color: white;
+          font-weight: 500;
+          font-size: 18px;
+          background-color: #1dbf73;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

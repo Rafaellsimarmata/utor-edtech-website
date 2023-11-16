@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useUser } from "../../context/userContext";
 import { toast } from "react-toastify";
-import { Spinner } from "../../components";
 import "./Navbar.scss";
 import "react-toastify/dist/ReactToastify.css";
 

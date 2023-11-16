@@ -16,7 +16,7 @@ const PathCard = ({ item, id_path }) => {
             <span>{item.username}</span>
           </div>
           <h3>{item.name_path}</h3>
-          <p>{item.description}</p>
+          <p>{item.description.substring(0, 60)}...</p>
           <div className="star">
             <PeopleFill />
             <span id="total">{item.total_participants}</span>

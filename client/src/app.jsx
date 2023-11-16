@@ -15,6 +15,7 @@ import {
   Message,
   MyPaths,
   Learn,
+  AddTopicPath,
 } from "./pages";
 
 const Layout = () => {
@@ -41,13 +42,14 @@ export default function App() {
               <Route path="/message/:id" element={<Message />} />
               <Route path="/addpath" element={<Add />} />
               <Route path="learn/:id" element={<Learn />} />
+              <Route path="addTopic/:id" element={<AddTopicPath />} />
+              <Route path="/path/:id" element={<Path />} />
             </Route>
           </Route>
 
           <Route element={<Layout />}>
             <Route path="/paths" element={<Paths />} />
             <Route index element={<Home />} />
-            <Route path="/path/:id" element={<Path />} />
           </Route>
 
           <Route path="/register" element={<Register />} />

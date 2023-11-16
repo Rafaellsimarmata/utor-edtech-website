@@ -58,9 +58,12 @@ const changeUserPasswordDb = async (hashedPassword, email) => {
 
 const addUserDb = async (password, email, name) => {
   const id = nanoid(10);
+  console.log('db');
 
   const { rows: user } = await db.query(`INSERT INTO "users" ("id","email","name", "password")
              VALUES ($1, $2,$3,$4) RETURNING *`, [id, email, name, password]);
+
+  console.log('db create');
 
   return user[0];
 };

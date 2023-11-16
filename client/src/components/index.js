@@ -9,3 +9,5 @@ export { default as Slide } from "./slide";
 export { default as Loader } from "./loader";
 export { default as Spinner } from "./Spinner"
 export { default as SubCard } from "./subCard"
+export { default as MateriCard } from "./materiCard"
+export { default as ActiveMateriCard } from "./ActiveMateriCard"

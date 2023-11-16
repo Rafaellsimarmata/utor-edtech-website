@@ -1,22 +1,23 @@
 import { Slider } from "infinite-react-carousel/lib";
-import "./Gig.scss";
+import "./path.scss";
 import { SubCard, Spinner } from "../../components";
 import { Link, useParams } from "react-router-dom";
+import { useUser } from "../../context/userContext";
 import { usePath } from "../../context/pathContext";
-import { useEffect } from "react";
 
 const profile =
   "https://raw.githubusercontent.com/vikas-parmar/vikas-parmar.github.io/main/assets/portrait-1.png";
 
 const Path = () => {
   const { id } = useParams();
+  const { userData } = useUser();
   const { detailPath, setPathId, itemsPath } = usePath();
 
   setTimeout(() => {
     setPathId(id);
   }, 0);
 
-  if (!detailPath || !detailPath[0] || !itemsPath) {
+  if (!detailPath || !detailPath[0] || !itemsPath || !userData) {
     return (
       <>
         <Spinner size={100} loading />
@@ -304,8 +305,16 @@ const Path = () => {
       </div>
       <div className="gigs">
         <div className="container">
-          <h1>List Materi</h1>
+          <h1>
+            List Materi{" "}
+            {userData.id === detailPath[0].id_mentor && (
+              <button>
+                <Link to={`/addTopic/${id}`}>Add Topic</Link>
+              </button>
+            )}
+          </h1>
           <p>Explore materi yang diberikan oleh mentor ini.</p>
+          <div id="addTopicPath"></div>
           <div className="cards">
             {itemsPath.map((item) => (
               <SubCard key={item.id_topic} item={item} />

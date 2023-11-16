@@ -1,4 +1,6 @@
+/* eslint-disable consistent-return */
 /* eslint-disable import/extensions */
+
 import learnPageService from '../services/learnPage.service.js';
 import { ErrorHandler } from '../helpers/error.js';
 
@@ -42,17 +44,24 @@ const getListMateri = async (req, res) => {
 
 const createPath = async (req, res) => {
   const {
-    namePath, desc, peserta, peluang, level, benefit, category, imgUrl,
+    namePath, desc, peserta, peluang, level, benefit, category, idMentor, imgUrl, price,
   } = req.body;
 
-  // const { id: idMentor } = req.user;
-  // console.log(idMentor);
-  const idMentor = 'dgrCUzi6Cu';
+  console.log(req.body);
 
   try {
     const pathDetail = await learnPageService
       .createPath({
-        namePath, desc, peserta, peluang, level, benefit, category, imgUrl, idMentor,
+        namePath,
+        desc,
+        peserta,
+        peluang,
+        level,
+        benefit,
+        category,
+        imgUrl,
+        idMentor,
+        price,
       });
     return res.status(200).json(pathDetail);
   } catch (error) {
@@ -62,10 +71,12 @@ const createPath = async (req, res) => {
 
 const createTopicPath = async (req, res) => {
   const { id } = req.params;
-  const { judul, descTopic, imgUrl } = req.body;
+  const {
+    judul, descTopic, imgUrl, ispremium,
+  } = req.body;
   try {
     const pathDetail = await learnPageService.createTopicPath({
-      id, judul, descTopic, imgUrl,
+      id, judul, descTopic, imgUrl, ispremium,
     });
     return res.status(200).json(pathDetail);
   } catch (error) {
