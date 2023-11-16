@@ -28,11 +28,11 @@ const addPathDb = async (pathData) => {
   const id = nanoid(10);
 
   const { rows } = await db.query(
-    `INSERT INTO "path" (id_path, name_path, description, peserta, peluang, levels, benefit, category, img_url, id_mentor, ispremium)
+    `INSERT INTO "path" (id_path, name_path, description, peserta, peluang, levels, benefit, category, img_url, id_mentor)
       VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) returning *`,
     [id, pathData.namePath, pathData.desc, pathData.peserta, pathData.peluang,
       pathData.level, pathData.benefit, pathData.category,
-      pathData.imgUrl, pathData.idMentor, pathData.type],
+      pathData.imgUrl, pathData.idMentor],
   );
 
   return rows[0];
@@ -40,18 +40,13 @@ const addPathDb = async (pathData) => {
 
 const addTopicPathDb = async (topicData) => {
   const id = nanoid(10);
-  console.log('db init');
-  let premium;
-
-  if (topicData.ispremium === 'true') premium = 1;
-  else premium = 0   ;
 
   const { rows } = await db.query(
     `INSERT INTO "topic" (id_path, id_topic, judul, desc_topic, img_url, ispremium)
-      VALUES($1, $2, $3, $4, $5, &6) returning *`,
-    [topicData.id, id, topicData.judul, topicData.descTopic, topicData.imgUrl, premium],
+      VALUES($1, $2, $3, $4, $5, $6) returning *`,
+    [topicData.id, id, topicData.judul, topicData.descTopic, topicData.imgUrl, topicData.ispremium],
   );
-  console.log('db create');
+
   return rows[0];
 };
 
@@ -66,7 +61,18 @@ const addMateriTopicDb = async (materiData) => {
   return rows[0];
 };
 
+const orderPathDb = async (orderData) => {
+  const id = nanoid(10);
+
+  const { rows } = await db.query(
+    `INSERT INTO "orders" (id_order, id_path, id_student)
+      VALUES($1, $2, $3) returning *`,
+    [id, orderData.id_path, orderData.id_student],
+  );
+  return rows[0];
+};
+
 export {
   getAllPathDb, getDetailPathDb, getItemPathDb, getListMateriDb, addPathDb, addTopicPathDb,
-  addMateriTopicDb,
+  addMateriTopicDb, orderPathDb,
 };

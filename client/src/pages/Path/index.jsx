@@ -299,7 +299,7 @@ const Path = () => {
                 <span>Social media icons</span>
               </div>
             </div>
-            <button>Continue</button>
+            <button>Daftar Kelas</button>
           </div>
         </div>
       </div>
