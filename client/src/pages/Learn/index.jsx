@@ -1,10 +1,10 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import "./Gig.scss";
+import "./learn.scss";
 import { SubCard, Spinner } from "../../components";
 import { Link, useParams } from "react-router-dom";
 import { usePath } from "../../context/pathContext";
 import ReactPlayer from "react-player/youtube";
-import VideoCard from "../../components/VideoCard";
+import LearnVideoCard from "../../components/LearnVideoCard";
 import { useEffect, useState } from "react";
 
 const profile =
@@ -256,10 +256,13 @@ const Learn = () => {
               Functionality with API integration.
             </p>
             {listMateri.map((materi, i) => (
-              <VideoCard
+              <LearnVideoCard
                 key={materi.id_materi}
                 item={materi}
-                setcurrMateri={() => setcurrMateri(listMateri[i])}
+                setcurrMateri={() => {
+                  setcurrMateri(listMateri[i]);
+                  console.log("cklic");
+                }}
               />
             ))}
           </div>

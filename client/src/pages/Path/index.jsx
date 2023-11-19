@@ -25,6 +25,12 @@ const Path = () => {
     );
   }
 
+  let isMentor;
+  if (userData.id === detailPath[0].id_mentor) isMentor = true;
+  else isMentor = false;
+
+  console.log(detailPath[0]);
+
   return (
     <>
       <div className="gig">
@@ -262,52 +268,88 @@ const Path = () => {
               </div>
             </div>
           </div>
-          <div className="right">
-            <div className="price">
-              <h3>💎 Premium Package ✨</h3>
-              <h2>₹8,993</h2>
+          {!isMentor ? (
+            <div className="right">
+              <div className="price">
+                <h3>💎 {detailPath[0].name_path} ✨</h3>
+                <h2>Rp.{detailPath[0].price}</h2>
+              </div>
+              <p>{detailPath[0].description}</p>
+              <div className="details">
+                <div className="item">
+                  <img src="/img/clock.png" alt="" />
+                  <span>Akses Seumur Hidup</span>
+                </div>
+                <div className="item">
+                  <img src="/img/recycle.png" alt="" />
+                  <span>on-going</span>
+                </div>
+              </div>
+              <div className="features">
+                <div className="item">
+                  <img src="/img/greencheck.png" alt="" />
+                  <span>{detailPath[0].peserta}</span>
+                </div>
+                <div className="item">
+                  <img src="/img/greencheck.png" alt="" />
+                  <span>{detailPath[0].peluang}</span>
+                </div>
+                <div className="item">
+                  <img src="/img/greencheck.png" alt="" />
+                  <span>{detailPath[0].levels}</span>
+                </div>
+                <div className="item">
+                  <img src="/img/greencheck.png" alt="" />
+                  <span>{detailPath[0].benefit}</span>
+                </div>
+              </div>
+              <button>Daftar Kelas</button>
             </div>
-            <p>
-              Bring your design in Fully responsive Web App with advance React
-              Functionality with API integration.
-            </p>
-            <div className="details">
-              <div className="item">
-                <img src="/img/clock.png" alt="" />
-                <span>10 Days Delivery</span>
+          ) : (
+            <div className="right">
+              <div className="price">
+                <h3>💎 {detailPath[0].name_path} ✨</h3>
+                <h2>Rp.{detailPath[0].price}</h2>
               </div>
-              <div className="item">
-                <img src="/img/recycle.png" alt="" />
-                <span>8 Revisions</span>
+              <p>{detailPath[0].description}</p>
+              <div className="details">
+                <div className="item">
+                  <img src="/img/clock.png" alt="" />
+                  <span>Akses Seumur Hidup</span>
+                </div>
+                <div className="item">
+                  <img src="/img/recycle.png" alt="" />
+                  <span>on-going</span>
+                </div>
               </div>
+              <div className="features">
+                <div className="item">
+                  <img src="/img/greencheck.png" alt="" />
+                  <span>{detailPath[0].peserta}</span>
+                </div>
+                <div className="item">
+                  <img src="/img/greencheck.png" alt="" />
+                  <span>{detailPath[0].peluang}</span>
+                </div>
+                <div className="item">
+                  <img src="/img/greencheck.png" alt="" />
+                  <span>{detailPath[0].levels}</span>
+                </div>
+                <div className="item">
+                  <img src="/img/greencheck.png" alt="" />
+                  <span>{detailPath[0].benefit}</span>
+                </div>
+              </div>
+              <button>Lihat Pengaturan Kelas </button>
             </div>
-            <div className="features">
-              <div className="item">
-                <img src="/img/greencheck.png" alt="" />
-                <span>Functional website</span>
-              </div>
-              <div className="item">
-                <img src="/img/greencheck.png" alt="" />
-                <span>7 page</span>
-              </div>
-              <div className="item">
-                <img src="/img/greencheck.png" alt="" />
-                <span>8 plugins/extensions</span>
-              </div>
-              <div className="item">
-                <img src="/img/greencheck.png" alt="" />
-                <span>Social media icons</span>
-              </div>
-            </div>
-            <button>Daftar Kelas</button>
-          </div>
+          )}
         </div>
       </div>
       <div className="gigs">
         <div className="container">
           <h1>
             List Materi{" "}
-            {userData.id === detailPath[0].id_mentor && (
+            {isMentor && (
               <button>
                 <Link to={`/addTopic/${id}`}>Add Topic</Link>
               </button>

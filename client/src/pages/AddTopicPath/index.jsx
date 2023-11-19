@@ -59,7 +59,7 @@ const AddTopic = () => {
       const pathData = await pathService.createTopicPath(dataTopic, id);
       setIdTopic(pathData.data.id_topic);
       toast.success("Topic created successfully");
-      // location.reload();
+      location.reload();
     } catch (error) {
       console.log(error.response?.data.message);
     }
@@ -103,7 +103,7 @@ const AddTopic = () => {
 
           <div className="sections">
             {idTopic ? (
-              <>
+              <div className="detailTopic">
                 <ActiveMateriCard
                   key={idTopic}
                   item={activeTopic}
@@ -119,7 +119,7 @@ const AddTopic = () => {
                     />
                   ))}
                 </div>
-              </>
+              </div>
             ) : (
               <form onSubmit={handleSubmitTopic} method="post">
                 <div className="info">

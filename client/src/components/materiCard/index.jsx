@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
-import "./subCard.scss";
 import { BookHalf, Trash } from "react-bootstrap-icons";
 
 const MateriCard = ({ item, setIdTopic, setActiveTopic, buttonFunc }) => {
