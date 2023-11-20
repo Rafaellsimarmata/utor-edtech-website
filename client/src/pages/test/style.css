@@ -1,0 +1,81 @@
+main{
+    background-color:gainsboro;
+    
+}
+.container-top{
+    background-color: rgb(48, 48, 48);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    padding: 100px 0;
+}
+.img-profile{
+    width: 150px;
+    height: 150px;
+    border-radius: 100%;
+    background: #000;
+    margin-bottom: 30px;
+    object-fit: cover;
+}
+.container-top h3{
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+.container-top p{
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 100;
+    font-size: 14px;
+    color: rgb(231, 231, 231);
+    text-align: center;
+    width: 70%;
+}
+.sosmed-container{
+    margin: 40px 0px 30px 0px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: white;
+}
+.sosmed-icon{
+    width: 30px;
+    height: 30px;
+    background: #000;
+    margin-right: 10px;
+}
+.container-top button{
+    padding: 10px 30px;
+    margin: 0px 5px;
+    border: 1px cyan solid;
+    color: cyan;
+    background-color: transparent;
+    transition-duration: 300ms;
+    cursor: pointer;
+}
+.container-top button:hover{
+    color: rgb(0, 0, 0);
+    background-color: cyan;
+}
+
+
+.container-bot{
+    background-color: azure;
+    padding: 100px 0;
+}
+.container-bot h2{
+    text-align: center;
+}
+.card-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    color: white;
+    padding: 50px 0;
+}
+.card-container div{
+    width: 250px;
+    height: 350px;
+    background-color: blanchedalmond;
+    margin: 0 20px;
+}

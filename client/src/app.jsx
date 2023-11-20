@@ -17,6 +17,7 @@ import {
   Learn,
   AddTopicPath,
 } from "./pages";
+import ProfilePage from "./pages/test/profile";
 
 const Layout = () => {
   return (
@@ -50,6 +51,7 @@ export default function App() {
           <Route element={<Layout />}>
             <Route path="/paths" element={<Paths />} />
             <Route index element={<Home />} />
+            <Route path='/profile' element={<ProfilePage/>} />
           </Route>
 
           <Route path="/register" element={<Register />} />
