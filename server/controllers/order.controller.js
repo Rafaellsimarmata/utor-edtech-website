@@ -37,10 +37,10 @@ const getUsersByIdPath = async (req, res) => {
 };
 
 const getUserPath = async (req, res) => {
-  const { id } = req.body;
+  const { idStudent } = req.body;
 
   try {
-    const detailData = await orderService.getUserPath(id);
+    const detailData = await orderService.getUserPath(idStudent);
     return res.status(200).json(detailData);
   } catch (error) {
     throw new ErrorHandler(error.statusCode, 'Error fetching data');
@@ -48,10 +48,24 @@ const getUserPath = async (req, res) => {
 };
 
 const getMentorPath = async (req, res) => {
-  const { id } = req.body;
+  const { idStudent } = req.body;
 
   try {
-    const detailData = await orderService.getMentorPath(id);
+    const detailData = await orderService.getMentorPath(idStudent);
+    return res.status(200).json(detailData);
+  } catch (error) {
+    throw new ErrorHandler(error.statusCode, 'Error fetching data');
+  }
+};
+
+const getUserinPath = async (req, res) => {
+  const { idpath } = req.params;
+  const { idStudent } = req.body;
+
+  try {
+    const detailData = await orderService.getUserinPath({
+      id_path: idpath, id_student: idStudent,
+    });
     return res.status(200).json(detailData);
   } catch (error) {
     throw new ErrorHandler(error.statusCode, 'Error fetching data');
@@ -59,5 +73,5 @@ const getMentorPath = async (req, res) => {
 };
 
 export {
-  getAllOrders, registerClass, getUsersByIdPath, getUserPath, getMentorPath,
+  getAllOrders, registerClass, getUsersByIdPath, getUserPath, getMentorPath, getUserinPath,
 };

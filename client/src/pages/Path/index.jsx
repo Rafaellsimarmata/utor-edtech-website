@@ -4,6 +4,9 @@ import { SubCard, Spinner } from "../../components";
 import { Link, useParams } from "react-router-dom";
 import { useUser } from "../../context/userContext";
 import { usePath } from "../../context/pathContext";
+import { useOrder } from "../../context/orderContext";
+import orderService from "../../services/order.service";
+import toast from "react-hot-toast";
 
 const profile =
   "https://raw.githubusercontent.com/vikas-parmar/vikas-parmar.github.io/main/assets/portrait-1.png";
@@ -12,9 +15,11 @@ const Path = () => {
   const { id } = useParams();
   const { userData } = useUser();
   const { detailPath, setPathId, itemsPath } = usePath();
+  const { isRegistered, setidCurrPath, setIdStudent } = useOrder();
 
   setTimeout(() => {
     setPathId(id);
+    setidCurrPath(id);
   }, 0);
 
   if (!detailPath || !detailPath[0] || !itemsPath || !userData) {
@@ -25,11 +30,35 @@ const Path = () => {
     );
   }
 
+  setTimeout(() => {
+    setIdStudent(userData.id);
+  }, 0);
+
+  // if (!isRegistered) {
+  //   return (
+  //     <>
+  //       <Spinner size={100} loading />
+  //     </>
+  //   );
+  // }
+
   let isMentor;
   if (userData.id === detailPath[0].id_mentor) isMentor = true;
   else isMentor = false;
 
-  console.log(detailPath[0]);
+  const regisClass = async () => {
+    try {
+      const data = await orderService.registerClass(id, userData.id);
+      toast.success("register successful 🔓");
+      location.reload();
+    } catch (error) {
+      console.log("getting error");
+      console.log(error);
+      toast.error("Could not Register Class");
+    }
+  };
+
+  console.log(isRegistered);
 
   return (
     <>
@@ -303,7 +332,11 @@ const Path = () => {
                   <span>{detailPath[0].benefit}</span>
                 </div>
               </div>
-              <button>Daftar Kelas</button>
+              {!isRegistered ? (
+                <button onClick={() => regisClass()}>Daftar Kelas</button>
+              ) : (
+                <button>Masuk ke Kelas</button>
+              )}
             </div>
           ) : (
             <div className="right">

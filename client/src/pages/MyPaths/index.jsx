@@ -1,21 +1,57 @@
 import { Link } from "react-router-dom";
 import "./MyGigs.scss";
+import { useUser } from "../../context/userContext";
+// import { usePath } from "../../context/pathContext";
+import { useOrder } from "../../context/orderContext";
+import { Spinner } from "../../components";
+import { RegisClass } from "../../components";
+import pathService from "../../services/path.service";
 
 const MyPaths = () => {
+  const { userData } = useUser();
+  const { registeredClass, setIdStudent } = useOrder();
+  // const { detailPath, setPathId } = usePath();
+  const dataClass = [];
+
   const currentUser = {
     id: 1,
     username: "Anna",
     isSeller: true,
   };
 
+  if (!userData) {
+    return (
+      <>
+        <Spinner size={100} loading />
+      </>
+    );
+  }
+
+  setTimeout(() => {
+    setIdStudent(userData.id);
+  }, 0);
+
+  // registeredClass.map(async (item, i) => {
+  //   const { data } = await pathService.getPathById(item.id_path);
+
+  //   console.log(data[0]);
+  // });
+
+  // console.log(dataClass);
+
+  // dataClass.forEach((item) => {
+  //   console.log("as");
+  //   console.log(item);
+  // });
+
   return (
     <div className="myGigs">
       <div className="container">
         <div className="title">
-          <h1>{currentUser.isSeller ? "Gigs" : "Orders"}</h1>
+          <h1>{currentUser.isSeller ? "Kelas Terdaftar" : "Orders"}</h1>
           {currentUser.isSeller && (
             <Link to="/add">
-              <button>Add New Gig</button>
+              <button>Tambah Kelas</button>
             </Link>
           )}
         </div>
@@ -27,108 +63,16 @@ const MyPaths = () => {
             <th>Sales</th>
             <th>Action</th>
           </tr>
-          <tr>
-            <td>
-              <img
-                className="image"
-                src="https://images.pexels.com/photos/270408/pexels-photo-270408.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
-            </td>
-            <td>Stunning concept art</td>
-            <td>
-              59.<sup>99</sup>
-            </td>
-            <td>13</td>
-            <td>
-              <img className="delete" src="./img/delete.png" alt="" />
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <img
-                className="image"
-                src="https://images.pexels.com/photos/270408/pexels-photo-270408.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
-            </td>
-            <td>Ai generated concept art</td>
-            <td>
-              120.<sup>99</sup>
-            </td>
-            <td>41</td>
-            <td>
-              <img className="delete" src="./img/delete.png" alt="" />
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <img
-                className="image"
-                src="https://images.pexels.com/photos/270408/pexels-photo-270408.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
-            </td>
-            <td>High quality digital character</td>
-            <td>
-              79.<sup>99</sup>
-            </td>
-            <td>55</td>
-            <td>
-              <img className="delete" src="./img/delete.png" alt="" />
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <img
-                className="image"
-                src="https://images.pexels.com/photos/270408/pexels-photo-270408.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
-            </td>
-            <td>Illustration hyper realistic painting</td>
-            <td>
-              119.<sup>99</sup>
-            </td>
-            <td>29</td>
-            <td>
-              <img className="delete" src="./img/delete.png" alt="" />
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <img
-                className="image"
-                src="https://images.pexels.com/photos/270408/pexels-photo-270408.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
-            </td>
-            <td>Original ai generated digital art</td>
-            <td>
-              59.<sup>99</sup>
-            </td>
-            <td>34</td>
-            <td>
-              <img className="delete" src="./img/delete.png" alt="" />
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <img
-                className="image"
-                src="https://images.pexels.com/photos/270408/pexels-photo-270408.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
-            </td>
-            <td>Text based ai generated art</td>
-            <td>
-              110.<sup>99</sup>
-            </td>
-            <td>16</td>
-            <td>
-              <img className="delete" src="./img/delete.png" alt="" />
-            </td>
-          </tr>
+          {/* {registeredClass.map(async (item, i) => {
+            const { data } = await pathService.getPathById(item.id_path);
+            console.log(data[0]);
+
+            return (
+              <>
+                <RegisClass key={item.id_order} item={data[0]} />
+              </>
+            );
+          })} */}
         </table>
       </div>
     </div>

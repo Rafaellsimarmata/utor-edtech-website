@@ -1,7 +1,8 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable import/extensions */
 import {
-  registerClassDb, getUsersByIdPathDb, getUserPathDb, getMentorPathDb, getAllOrdersDb,
+  registerClassDb, getUsersByIdPathDb, getUserPathDb,
+  getMentorPathDb, getAllOrdersDb, getUserInPathDb,
 } from '../models/order.db.js';
 
 import { ErrorHandler } from '../helpers/error.js';
@@ -42,6 +43,14 @@ class OrderService {
   getAllOrders = async () => {
     try {
       return await getAllOrdersDb();
+    } catch (error) {
+      throw new ErrorHandler(error.statusCode, error.message);
+    }
+  };
+
+  getUserinPath = async (data) => {
+    try {
+      return await getUserInPathDb(data);
     } catch (error) {
       throw new ErrorHandler(error.statusCode, error.message);
     }

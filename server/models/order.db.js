@@ -34,6 +34,13 @@ const getAllOrdersDb = async () => {
   return detailData;
 };
 
+const getUserInPathDb = async (data) => {
+  const { rows: detailData } = await db.query('SELECT * FROM orders WHERE id_student = $1 and id_path = $2', [data.id_student, data.id_path]);
+
+  return detailData;
+};
+
 export {
-  registerClassDb, getUsersByIdPathDb, getUserPathDb, getMentorPathDb, getAllOrdersDb,
+  registerClassDb, getUsersByIdPathDb, getUserPathDb,
+  getMentorPathDb, getAllOrdersDb, getUserInPathDb,
 };

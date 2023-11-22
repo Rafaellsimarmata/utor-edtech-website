@@ -7,7 +7,6 @@ import authService from "../services/auth.service";
 const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
-
   const [userData, setUserData] = useState(null);
   const [authData, setAuthData] = useState({
     token: "",
@@ -27,13 +26,10 @@ const UserProvider = ({ children }) => {
     }
   }, []);
 
-  const updateUserData = async ({
-    name,
-    email,
-  }) => {
+  const updateUserData = async ({ name, email }) => {
     const res = await API.put(`/users/${userData.user_id}`, {
       name,
-      email
+      email,
     });
     setUserData(res.data);
   };
@@ -74,13 +70,13 @@ const UserProvider = ({ children }) => {
   );
 };
 
-  const useUser = () => {
-    const context = useContext(UserContext);
-    if (context === undefined) {
-      throw new Error("useUser must be used within UserProvider");
-    }
-    return context;
-  };
+const useUser = () => {
+  const context = useContext(UserContext);
+  if (context === undefined) {
+    throw new Error("useUser must be used within UserProvider");
+  }
+  return context;
+};
 
 // eslint-disable-next-line react-refresh/only-export-components
 export { UserProvider, useUser };
