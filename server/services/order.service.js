@@ -2,12 +2,20 @@
 /* eslint-disable import/extensions */
 import {
   registerClassDb, getUsersByIdPathDb, getUserPathDb,
-  getMentorPathDb, getAllOrdersDb, getUserInPathDb,
+  getMentorPathDb, getAllOrdersDb, getUserInPathDb, topupDb,
 } from '../models/order.db.js';
 
 import { ErrorHandler } from '../helpers/error.js';
 
 class OrderService {
+  topUp = async (orderData, jumlah) => {
+    try {
+      return await topupDb(orderData, jumlah);
+    } catch (error) {
+      throw new ErrorHandler(error.statusCode, error.message);
+    }
+  };
+
   registerClass = async (orderData) => {
     try {
       return await registerClassDb(orderData);

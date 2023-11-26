@@ -2,13 +2,25 @@
 import { nanoid } from 'nanoid';
 import db from '../config/db_config.js';
 
+const topupDb = async (userData, jumlah) => {
+  const { rows } = await db.query(
+    'UPDATE users SET balance = $1 WHERE id = $2',
+    [userData.id, userData.balance + jumlah],
+  );
+
+  return rows[0];
+};
+
 const registerClassDb = async (orderData) => {
   const orderId = nanoid(8);
 
+  console.log(orderData);
+
   const { rows } = await db.query(
-    `INSERT INTO "orders" (id_order, id_path, id_student)
-      VALUES($1, $2, $3) returning *`,
-    [orderId, orderData.id_path, orderData.id_student],
+    `INSERT INTO "orders" (id_order, id_path, id_student, name_path, total_participants, img_url, price)
+      VALUES($1, $2, $3, $4, $5, $6, $7) returning *`,
+    [orderId, orderData.id_path, orderData.id_student,
+      orderData.name_path, orderData.total_participants, orderData.img_url, orderData.price],
   );
 
   return rows[0];
@@ -42,5 +54,5 @@ const getUserInPathDb = async (data) => {
 
 export {
   registerClassDb, getUsersByIdPathDb, getUserPathDb,
-  getMentorPathDb, getAllOrdersDb, getUserInPathDb,
+  getMentorPathDb, getAllOrdersDb, getUserInPathDb, topupDb,
 };

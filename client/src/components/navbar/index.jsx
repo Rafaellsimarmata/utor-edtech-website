@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useUser } from "../../context/userContext";
+import { Coin, PlusSquareFill } from "react-bootstrap-icons";
+import { Spinner } from "../../components";
 import { toast } from "react-toastify";
 import "./Navbar.scss";
 import "react-toastify/dist/ReactToastify.css";
@@ -31,6 +33,14 @@ const Navbar = () => {
     currentUser = null;
   }
 
+  if (!userData) {
+    return (
+      <>
+        <Spinner size={100} loading />
+      </>
+    );
+  }
+
   const logoutButton = async () => {
     // console.log("clicked");
     // e.preventDefault();
@@ -58,26 +68,38 @@ const Navbar = () => {
           <span>About Us </span>
           <span>Explore</span>
           <span>Komunitas</span>
-          {currentUser?.roles !== "mentor" && <span>Become a Mentor</span>}
           {currentUser ? (
-            <div className="user" onClick={() => setOpen(!open)}>
-              <img
-                src="https://raw.githubusercontent.com/vikas-parmar/vikas-parmar.github.io/main/assets/portrait-1.png"
-                alt=""
-              />
-              <span>{currentUser?.name}</span>
-              {open && (
-                <div className="options">
-                  {currentUser?.roles === "mentor" ? (
+            <>
+              <div className="saldo">
+                <p>
+                  Saldo : <Coin />
+                  {userData.balance}
+                </p>
+                <PlusSquareFill />
+              </div>
+              <div className="user" onClick={() => setOpen(!open)}>
+                <img
+                  src="https://raw.githubusercontent.com/vikas-parmar/vikas-parmar.github.io/main/assets/portrait-1.png"
+                  alt=""
+                />
+                <span>{currentUser?.name}</span>
+                {open && (
+                  <div className="options">
                     <>
                       <Link className="link" to="/profile">
                         Profile
                       </Link>
+                      <Link className="link" to="/myclass">
+                        Kelas Terdaftar
+                      </Link>
+                      <Link className="link" to="/paths">
+                        tambah Kelas
+                      </Link>
                       <Link className="link" to="/mypaths">
-                        My Paths
+                        Path saya
                       </Link>
                       <Link className="link" to="/addpath">
-                        Add New Path
+                        tambah path
                       </Link>
                       <Link className="link" to="/orders">
                         Orders
@@ -93,32 +115,10 @@ const Navbar = () => {
                         Logout
                       </Link>
                     </>
-                  ) : (
-                    <>
-                      <Link className="link" to="/profile">
-                        Profile
-                      </Link>
-                      <Link className="link" to="/mypaths">
-                        My Paths
-                      </Link>
-                      <Link className="link" to="/paths">
-                        Add New Path
-                      </Link>
-                      <Link className="link" to="/messages">
-                        Messages
-                      </Link>
-                      <Link
-                        className="link"
-                        to="/"
-                        onClick={() => logoutButton()}
-                      >
-                        Logout
-                      </Link>
-                    </>
-                  )}
-                </div>
-              )}
-            </div>
+                  </div>
+                )}
+              </div>
+            </>
           ) : (
             <>
               <Link className="link" to="/login">

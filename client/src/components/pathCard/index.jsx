@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
 import "./GigCard.scss";
-import { PeopleFill, BookHalf } from "react-bootstrap-icons";
+import { PeopleFill, BookHalf, Coin } from "react-bootstrap-icons";
 
 const PathCard = ({ item, id_path }) => {
   const hrefLink = `/path/${id_path}`;
@@ -34,10 +34,10 @@ const PathCard = ({ item, id_path }) => {
         <div className="detail">
           <img src="./img/heart.png" alt="" />
           <div className="price">
-            <span>STARTING AT</span>
+            <span>PRICE :</span>
             <h2>
-              $ {item.price}
-              <sup>99</sup>
+              <Coin />
+              {item.price}
             </h2>
           </div>
         </div>

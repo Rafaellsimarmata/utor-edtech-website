@@ -7,6 +7,7 @@ import { usePath } from "../../context/pathContext";
 import { useOrder } from "../../context/orderContext";
 import orderService from "../../services/order.service";
 import toast from "react-hot-toast";
+import { Coin } from "react-bootstrap-icons";
 
 const profile =
   "https://raw.githubusercontent.com/vikas-parmar/vikas-parmar.github.io/main/assets/portrait-1.png";
@@ -15,7 +16,7 @@ const Path = () => {
   const { id } = useParams();
   const { userData } = useUser();
   const { detailPath, setPathId, itemsPath } = usePath();
-  const { isRegistered, setidCurrPath, setIdStudent } = useOrder();
+  const { isRegistered, setidCurrPath, setIdUser } = useOrder();
 
   setTimeout(() => {
     setPathId(id);
@@ -31,7 +32,7 @@ const Path = () => {
   }
 
   setTimeout(() => {
-    setIdStudent(userData.id);
+    setIdUser(userData.id);
   }, 0);
 
   // if (!isRegistered) {
@@ -48,7 +49,14 @@ const Path = () => {
 
   const regisClass = async () => {
     try {
-      const data = await orderService.registerClass(id, userData.id);
+      const data = await orderService.registerClass(
+        id,
+        userData.id,
+        detailPath[0].name_path,
+        detailPath[0].total_participants,
+        detailPath[0].img_url,
+        detailPath[0].price
+      );
       toast.success("register successful 🔓");
       location.reload();
     } catch (error) {
@@ -300,8 +308,10 @@ const Path = () => {
           {!isMentor ? (
             <div className="right">
               <div className="price">
-                <h3>💎 {detailPath[0].name_path} ✨</h3>
-                <h2>Rp.{detailPath[0].price}</h2>
+                <h3>💎 {detailPath[0].name_path} </h3>
+                <h2>
+                  <Coin /> {detailPath[0].price}
+                </h2>
               </div>
               <p>{detailPath[0].description}</p>
               <div className="details">

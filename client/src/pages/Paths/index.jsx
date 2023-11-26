@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { PathCard, Spinner } from "../../components";
 import { usePath } from "../../context/pathContext";
+import { Coin } from "react-bootstrap-icons";
 import "./Gigs.scss";
 
 const Paths = () => {

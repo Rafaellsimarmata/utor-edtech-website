@@ -8,32 +8,43 @@ const OrderContext = createContext();
 const OrderProvider = ({ children }) => {
   const [isRegistered, setIsRegistered] = useState(null);
   const [idCurrPath, setidCurrPath] = useState(null);
-  const [idStudent, setIdStudent] = useState(null);
+  const [idUser, setIdUser] = useState(null);
   const [registeredClass, setRegisteredClass] = useState(null);
+  const [taughtClass, setTaughtClass] = useState(null);
 
   useEffect(() => {
     try {
-      orderService.isRegistered(idCurrPath, idStudent).then(({ data }) => {
+      orderService.isRegistered(idCurrPath, idUser).then(({ data }) => {
         console.log(data);
         if (data.length !== 0) setIsRegistered(true);
         else setIsRegistered(false);
       });
+    } catch (error) {
+      console.log(error.message);
+    }
+  }, [idCurrPath, idUser]);
 
-      orderService.getUserPath(idStudent).then(({ data }) => {
+  useEffect(() => {
+    try {
+      orderService.getUserPath(idUser).then(({ data }) => {
         console.log(data);
         setRegisteredClass(data);
       });
     } catch (error) {
       console.log(error.message);
     }
-  }, [idCurrPath, idStudent]);
+  }, [idUser]);
 
-  // useEffect(() => {
-  //   orderService.getUserPath(idStudent).then((response) => {
-  //     console.log(response);
-  //     setRegisteredClass(response.data);
-  //   });
-  // }, [idStudent]);
+  useEffect(() => {
+    try {
+      orderService.getMentorPath(idUser).then(({ data }) => {
+        console.log(data);
+        setTaughtClass(data);
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  }, [idUser]);
 
   return (
     <OrderContext.Provider
@@ -44,8 +55,10 @@ const OrderProvider = ({ children }) => {
         setIsRegistered,
         idCurrPath,
         setidCurrPath,
-        idStudent,
-        setIdStudent,
+        idUser,
+        setIdUser,
+        taughtClass,
+        setTaughtClass,
       }}
     >
       <WithAxios>{children}</WithAxios>

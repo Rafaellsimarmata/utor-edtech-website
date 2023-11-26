@@ -8,7 +8,7 @@ import { RegisClass } from "../../components";
 
 const MyPaths = () => {
   const { userData } = useUser();
-  const { taughtClass, setIdUser } = useOrder();
+  const { registeredClass, setIdUser } = useOrder();
 
   const currentUser = {
     id: 1,
@@ -28,17 +28,14 @@ const MyPaths = () => {
     setIdUser(userData.id);
   }, 0);
 
-  console.log(userData.id);
-  console.log(taughtClass);
-
   return (
     <div className="myGigs">
       <div className="container">
         <div className="title">
-          <h1>{currentUser.isSeller ? "Daftar Kelas Ajaran" : "Orders"}</h1>
+          <h1>{currentUser.isSeller ? "Kelas Terdaftar" : "Orders"}</h1>
           {currentUser.isSeller && (
-            <Link to="/addpath">
-              <button>Tambah Path</button>
+            <Link to="/paths">
+              <button>Tambah Kelas</button>
             </Link>
           )}
         </div>
@@ -50,8 +47,8 @@ const MyPaths = () => {
             <th>Peserta</th>
             <th>Action</th>
           </tr>
-          {taughtClass.map((item) => (
-            <RegisClass key={item.id_path} item={item} action={"path"} />
+          {registeredClass.map((item) => (
+            <RegisClass key={item.id_order} item={item}  action={"Class"}/>
           ))}
         </table>
       </div>

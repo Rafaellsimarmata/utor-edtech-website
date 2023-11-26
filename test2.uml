@@ -1,59 +1,68 @@
 @startuml
 
-entity Customer {
-    email_address : varchar <PK>
+entity Users {
+    Id : varchar <PK>
     --
-    shipping_address:varchar
-    credit_Card:varchar
+    nama : text
+    email : varchar
+    password : varchar
+    balance : number
+    img_profile : varchar
+    description : varchar
 }
 
-object Single_Sale {
-    id_videos: text <FK>
-    email_address : text <FK>
+entity Path {
+    id_path : varchar <PK>
     --
-    shipping_address:varchar
-    jumlah_video : number
-    charge : number
+    id_mentor : varchar <FK>
+    --   
+    name_path : varchar
+    total_participants : int
+    total_topics : int
+    total_material : int
+    description : varchar
+    img_url : varchar
+    price  : float
 }
 
-entity Videos {
-    id_videos : varchar <PK>
+entity Orders {
+    id_order : varchar <PK>
     --
-    video_format : varchar
-    price : number
+    id_path : varchar <FK>
+    id_student : varchar <FK>
+    --   
+    waktu_daftar : timestamp
 }
 
-entity Cart {
-    id_videos : varchar <FK>
-    email_address : varchar <FK>
+entity list_materi {
+    id_materi : varchar <PK>
     --
-    jumlah:number
+    id_topic : varchar <FK>
+    --   
+    judulmateri : varchar
+    type_materi : boolean
+    url_vid : varchar
 }
 
-Customer ||--|| Customer
-note on link
-    Update 
-end note
+entity list_materi {
+    id_materi : varchar <PK>
+    --
+    id_topic : varchar <FK>
+    --   
+    judulmateri : varchar
+    url_vid : varchar
+}
 
-Customer }|--|| Single_Sale
-note on link
-    Single Sale 
-end note
-
-Videos ||--|| Single_Sale
-note on link
-    Single Sale 
-end note
-
-Customer }|--|| Cart
-note on link
-    Add Items 
-end note
-
-Cart ||--|| Cart
-note on link
-    Checkout and Delete 
-end note
+entity topic {
+    id_topic : varchar <PK>
+    --
+    id_path : varchar <FK>
+    --   
+    judul : varchar
+    deskripsi : varchar
+    img_url : varchar
+    ispremium : boolean
+}
 
 
 

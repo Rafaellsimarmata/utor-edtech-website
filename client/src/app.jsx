@@ -16,6 +16,8 @@ import {
   MyPaths,
   Learn,
   AddTopicPath,
+  MyClass,
+  ProfilePage,
 } from "./pages";
 
 const Layout = () => {
@@ -38,12 +40,14 @@ export default function App() {
             <Route element={<Layout />}>
               <Route path="/mypaths" element={<MyPaths />} />
               <Route path="/orders" element={<Orders />} />
+              <Route path="/myclass" element={<MyClass />} />
               <Route path="/messages" element={<Messages />} />
               <Route path="/message/:id" element={<Message />} />
               <Route path="/addpath" element={<Add />} />
               <Route path="learn/:id" element={<Learn />} />
               <Route path="addTopic/:id" element={<AddTopicPath />} />
               <Route path="/path/:id" element={<Path />} />
+              <Route path="/profile" element={<ProfilePage />} />
             </Route>
           </Route>
 
@@ -59,60 +63,3 @@ export default function App() {
     </BrowserRouter>
   );
 }
-
-// export const routes = createBrowserRouter([
-//   {
-//     path: "/",
-//     element: <Layout />,
-//     children: [
-//       {
-//         // homepage / landing page
-//         path: "/",
-//         element: <Home />,
-//       },
-//       {
-//         // daftar kelas
-//         path: "/paths",
-//         element: <Paths />,
-//       },
-//       {
-//         // Kelas yang terdaftar
-//         path: "/mypath",
-//         element: <MyPaths />,
-//       },
-//       {
-//         // page mentor untuk melihat orderan yang dibeli (buat 2 orders for mentor and student)
-//         path: "/orders",
-//         element: <Orders />,
-//       },
-//       {
-//         // both for mentor and student
-//         path: "/messages",
-//         element: <Messages />,
-//       },
-//       {
-//         // chat message both for mento and student
-//         path: "/message/:id",
-//         element: <Message />,
-//       },
-//       {
-//         // add kelas just for mentor
-//         path: "/addpath",
-//         element: <Add />,
-//       },
-//       {
-//         // detail kelas
-//         path: "/path/:id",
-//         element: <Path />,
-//       },
-//     ],
-//   },
-//   {
-//     path: "/register",
-//     element: <Register />,
-//   },
-//   {
-//     path: "/login",
-//     element: <Login />,
-//   },
-// ]);

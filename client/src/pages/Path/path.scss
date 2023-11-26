@@ -265,6 +265,13 @@
 
         h2 {
           font-weight: 300;
+          display: flex;
+          align-items: center;
+          gap: 5px;
+
+          svg {
+            color: #ffc108;
+          }
         }
 
         h3 {

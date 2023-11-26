@@ -10,3 +10,5 @@ export { default as Orders } from "./orders";
 export { default as Register } from "./register";
 export { default as Learn } from "./Learn"
 export { default as AddTopicPath } from "./AddTopicPath"
+export { default as MyClass } from "./myClass"
+export { default as ProfilePage } from "./Profile"

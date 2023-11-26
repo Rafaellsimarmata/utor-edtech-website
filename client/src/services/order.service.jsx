@@ -1,9 +1,13 @@
 import API from "../api/axios-config";
 
 class PathService {
-  registerClass(idPath, idStudent) {
+  registerClass(idPath, idStudent, namePath, totalParticipants, imgUrl, price) {
     return API.post(`/register-class/${idPath}`, {
       idStudent,
+      namePath,
+      totalParticipants,
+      imgUrl,
+      price,
     });
   }
 
@@ -17,6 +21,13 @@ class PathService {
     console.log(idStudent);
     return API.post("/studentpath", {
       idStudent,
+    });
+  }
+
+  getMentorPath(idMentor) {
+    console.log(idMentor);
+    return API.post("/mentorpath", {
+      idMentor,
     });
   }
 }
