@@ -4,8 +4,8 @@ import db from '../config/db_config.js';
 
 const topupDb = async (userData, jumlah) => {
   const { rows } = await db.query(
-    'UPDATE users SET balance = $1 WHERE id = $2',
-    [userData.id, userData.balance + jumlah],
+    'UPDATE users SET balance = $1 WHERE id = $2 returning balance',
+    [userData.balance + jumlah, userData.id],
   );
 
   return rows[0];
@@ -14,13 +14,16 @@ const topupDb = async (userData, jumlah) => {
 const registerClassDb = async (orderData) => {
   const orderId = nanoid(8);
 
-  console.log(orderData);
-
   const { rows } = await db.query(
     `INSERT INTO "orders" (id_order, id_path, id_student, name_path, total_participants, img_url, price)
       VALUES($1, $2, $3, $4, $5, $6, $7) returning *`,
     [orderId, orderData.id_path, orderData.id_student,
       orderData.name_path, orderData.total_participants, orderData.img_url, orderData.price],
+  );
+
+  await db.query(
+    'UPDATE users SET balance = $1 WHERE id = $2',
+    [orderData.currSaldoUser, orderData.id_student],
   );
 
   return rows[0];

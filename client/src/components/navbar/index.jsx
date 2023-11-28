@@ -33,14 +33,6 @@ const Navbar = () => {
     currentUser = null;
   }
 
-  if (!userData) {
-    return (
-      <>
-        <Spinner size={100} loading />
-      </>
-    );
-  }
-
   const logoutButton = async () => {
     // console.log("clicked");
     // e.preventDefault();
@@ -73,15 +65,16 @@ const Navbar = () => {
               <div className="saldo">
                 <p>
                   Saldo : <Coin />
-                  {userData.balance}
+                  {userData?.balance}
                 </p>
-                <PlusSquareFill />
+                <Link
+                  to={`https://wa.me/6281260018869?text=Beli%20Koin%20Utor%20dan%20berlangganan%20bang%20!`}
+                >
+                  <PlusSquareFill />
+                </Link>
               </div>
               <div className="user" onClick={() => setOpen(!open)}>
-                <img
-                  src="https://raw.githubusercontent.com/vikas-parmar/vikas-parmar.github.io/main/assets/portrait-1.png"
-                  alt=""
-                />
+                <img src={userData?.img_profile} alt="" />
                 <span>{currentUser?.name}</span>
                 {open && (
                   <div className="options">

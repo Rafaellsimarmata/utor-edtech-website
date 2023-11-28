@@ -55,14 +55,18 @@ const Path = () => {
         detailPath[0].name_path,
         detailPath[0].total_participants,
         detailPath[0].img_url,
-        detailPath[0].price
+        detailPath[0].price,
+        userData.balance
       );
+
+      console.log(data);
+
       toast.success("register successful 🔓");
       location.reload();
     } catch (error) {
       console.log("getting error");
       console.log(error);
-      toast.error("Could not Register Class");
+      toast.error(`${error.response.data}`);
     }
   };
 

@@ -1,13 +1,22 @@
 import API from "../api/axios-config";
 
 class PathService {
-  registerClass(idPath, idStudent, namePath, totalParticipants, imgUrl, price) {
+  registerClass(
+    idPath,
+    idStudent,
+    namePath,
+    totalParticipants,
+    imgUrl,
+    price,
+    userSaldo
+  ) {
     return API.post(`/register-class/${idPath}`, {
       idStudent,
       namePath,
       totalParticipants,
       imgUrl,
-      price,
+      pathPrice: price,
+      userSaldo,
     });
   }
 

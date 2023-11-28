@@ -36,14 +36,16 @@ const updateUserDb = async ({
   return user[0];
 };
 
-const createUserGoogleDb = async ({ sub, email, fullName }) => {
+const createUserGoogleDb = async ({
+  sub, email, fullName, picture,
+}) => {
   const id = nanoid(10);
 
   const { rows } = await db.query(
-    `INSERT INTO "users" (id, email, name, google_id) 
-      VALUES($1, $2, $3, $4) ON CONFLICT (email) 
+    `INSERT INTO "users" (id, email, name, google_id, img_profile) 
+      VALUES($1, $2, $3, $4, $5) ON CONFLICT (email) 
       DO UPDATE SET  google_id = $4, name = $3 returning *`,
-    [id, email, fullName, sub],
+    [id, email, fullName, sub, picture],
   );
   return rows[0];
 };

@@ -71,6 +71,7 @@ const LoginPage = () => {
       }, 1500);
     } catch (error) {
       setIsLoading(false);
+      toast.error(`${error.response?.data.message}`);
       setError(error.response?.data.message);
       console.log(error.response?.data.message);
     }

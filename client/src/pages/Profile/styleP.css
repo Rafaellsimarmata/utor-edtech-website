@@ -49,15 +49,15 @@ main {
 .container-top button {
   padding: 10px 30px;
   margin: 0px 5px;
-  border: 1px cyan solid;
-  color: cyan;
+  border: 1px red solid;
+  color: red;
   background-color: transparent;
   transition-duration: 300ms;
   cursor: pointer;
 }
 .container-top button:hover {
   color: rgb(0, 0, 0);
-  background-color: cyan;
+  background-color: red;
 }
 
 .container-bot {

@@ -29,7 +29,10 @@ class AuthService {
       } = user;
 
       if (!email || !password || !name) {
-        throw new ErrorHandler(401, 'all fields required');
+        return {
+          error: true,
+          message: 'All field Required',
+        };
       }
 
       if (validateUser(email, password)) {
@@ -38,7 +41,12 @@ class AuthService {
 
         const userByEmail = await getUserByEmailDb(email);
         if (userByEmail) {
-          throw new ErrorHandler(401, 'email taken already');
+          // return res.status(401).json('email taken already');
+          // throw new ErrorHandler(401, 'email taken already');
+          return {
+            error: true,
+            message: 'email taken already',
+          };
         }
 
         const newUser = await addUserDb(
@@ -67,7 +75,10 @@ class AuthService {
           },
         };
       }
-      throw new ErrorHandler(401, 'Input validation error');
+      return {
+        error: true,
+        message: 'Input Validation Error',
+      };
     } catch (error) {
       throw new ErrorHandler(error.statusCode, error.message);
     }
@@ -122,7 +133,10 @@ class AuthService {
   async googleLogin(code) {
     try {
       const ticket = await this.verifyGoogleIdToken(code);
-      const { name, email, sub } = ticket.getPayload();
+      const {
+        name, email, sub, picture,
+      } = ticket.getPayload();
+
       const fullName = name;
 
       try {
@@ -133,6 +147,7 @@ class AuthService {
             sub,
             email,
             fullName,
+            picture,
           });
 
           await signupMail(dataUser.email, dataUser.name.split(' ')[0]);

@@ -6,15 +6,16 @@ class AuthService {
       email,
       password,
     });
+
     return data;
   }
 
   async googleLogin(code) {
-    console.log('Google Login session');
+    console.log("Google Login session");
     const { data } = await API.post("/auth/google", {
       code,
     });
-    console.log('already getting data');
+    console.log("already getting data");
     return data;
   }
 
@@ -46,12 +47,14 @@ class AuthService {
     });
   }
 
-  register(name, email, password) {
-    return API.post("/auth/register", {
+  async register(name, email, password) {
+    const { data } = await API.post("/auth/register", {
       name,
       email,
       password,
     });
+
+    return data;
   }
 
   getCurrentUser() {

@@ -22,20 +22,22 @@ const topUp = async (req, res) => {
 const registerClass = async (req, res) => {
   const { id } = req.params;
   const {
-    idStudent, namePath, totalParticipants, imgUrl, price,
+    idStudent, namePath, totalParticipants, imgUrl, pathPrice, userSaldo,
   } = req.body;
 
-  console.log(req.body);
-  const totalParticipant = totalParticipants + 1;
+  if (userSaldo < pathPrice) {
+    return res.status(422).json('Saldo Anda tidak mencukupi');
+  }
 
   try {
     const orderDetail = await orderService.registerClass({
       id_path: id,
       id_student: idStudent,
       name_path: namePath,
-      total_participants: totalParticipant,
+      total_participants: totalParticipants + 1,
       img_url: imgUrl,
-      price,
+      price: pathPrice,
+      currSaldoUser: userSaldo - pathPrice,
     });
     return res.status(200).json(orderDetail);
   } catch (error) {

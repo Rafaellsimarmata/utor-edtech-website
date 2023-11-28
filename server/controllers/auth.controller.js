@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable import/no-named-as-default-member */
 /* eslint-disable import/extensions */
 // note : function terus export
@@ -6,7 +7,15 @@ import { signupMail } from '../services/mail.service.js';
 import { ErrorHandler } from '../helpers/error.js';
 
 const createAccount = async (req, res) => {
-  const { token, refreshToken, user } = await authService.signUp(req.body);
+  const {
+    error, message, token, refreshToken, user,
+  } = await authService.signUp(req.body);
+
+  if (error) {
+    return res.status(401).json({
+      message,
+    });
+  }
 
   if (process.env.NODE_ENV !== 'test') {
     await signupMail(user.email, user.name.split(' ')[0]);

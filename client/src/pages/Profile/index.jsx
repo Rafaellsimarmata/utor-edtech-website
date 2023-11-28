@@ -1,7 +1,10 @@
 import "./styleP.css";
 import { useUser } from "../../context/userContext";
 import { Spinner } from "../../components";
+import { Link } from "react-router-dom";
 import { Instagram, Facebook, Linkedin, Youtube } from "react-bootstrap-icons";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function ProfilePage() {
   const { userData, logout } = useUser();
@@ -14,16 +17,26 @@ export default function ProfilePage() {
     );
   }
 
+  const logoutButton = async () => {
+    try {
+      toast.warning("Logout successfully");
+      // localStorage.removeItem("token");
+      logout();
+      location.reload();
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
   console.log(userData);
 
   return (
     <main className=" bg-black text-9xl">
       <section className="container-top">
-        <img
-          className="img-profile"
-          src="https://th.bing.com/th?id=OIP.u2UEX9aRsW4Hv4_1k5e23QHaDT&w=349&h=156&c=8&rs=1&qlt=90&o=6&dpr=1.8&pid=3.1&rm=2"
-        />
+        <img className="img-profile" src={userData.img_profile} />
         <h3>{userData.name}</h3>
+        <h6>ID : {userData.id}</h6>
+        <br />
         <p>{userData.description}</p>
         <div className="sosmed-container">
           <Instagram />
@@ -32,11 +45,13 @@ export default function ProfilePage() {
           <Youtube />
         </div>
         <div className="button container">
-          <button>button</button>
-          <button>Logout</button>
+          {/* <button>button</button> */}
+          <Link className="link" to="/" onClick={() => logoutButton()}>
+            <button>Logout</button>
+          </Link>
         </div>
       </section>
-      <section className="container-bot">
+      {/* <section className="container-bot">
         <h2>My Path</h2>
         <div className="card-container">
           <div></div>
@@ -50,7 +65,7 @@ export default function ProfilePage() {
           <div></div>
           <div></div>
         </div>
-      </section>
+      </section> */}
     </main>
   );
 }
