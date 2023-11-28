@@ -356,7 +356,9 @@ const Path = () => {
             <div className="right">
               <div className="price">
                 <h3>💎 {detailPath[0].name_path} ✨</h3>
-                <h2>Rp.{detailPath[0].price}</h2>
+                <h2>
+                  <Coin /> {detailPath[0].price}
+                </h2>
               </div>
               <p>{detailPath[0].description}</p>
               <div className="details">

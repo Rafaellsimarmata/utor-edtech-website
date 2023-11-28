@@ -22,7 +22,7 @@ const Add = () => {
     category: "design",
     imgUrl: "",
     idMentor: "",
-    price: "",
+    price: 0,
   });
 
   if (!userData) {
@@ -33,14 +33,16 @@ const Add = () => {
     );
   }
 
-  if (userData.roles !== "mentor") {
-    return <Navigate to={state?.from || "/"} />;
-  }
+  // if (userData.roles !== "mentor") {
+  //   return <Navigate to={state?.from || "/"} />;
+  // }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
+      // console.log(data);
+      // return;
       const pathData = await pathService.createPath(data);
       console.log(pathData);
       toast.success("Path created successfully");
@@ -201,7 +203,7 @@ const Add = () => {
                   })
                 }
               />
-              <label htmlFor="">Price</label>
+              <label htmlFor="price">Price</label>
               <input
                 type="number"
                 name="price"

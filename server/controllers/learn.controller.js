@@ -61,7 +61,7 @@ const createPath = async (req, res) => {
         category,
         imgUrl,
         idMentor,
-        price,
+        price: Math.round(price),
       });
     return res.status(200).json(pathDetail);
   } catch (error) {

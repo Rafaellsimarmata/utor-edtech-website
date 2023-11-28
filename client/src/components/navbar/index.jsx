@@ -69,7 +69,7 @@ const Navbar = () => {
                 </p>
                 <Link
                   to={`https://wa.me/6281260018869?text=Beli%20Koin%20Utor%20dan%20berlangganan%20bang%20!`}
-                >
+                > 
                   <PlusSquareFill />
                 </Link>
               </div>

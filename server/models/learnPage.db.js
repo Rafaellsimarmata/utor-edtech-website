@@ -28,11 +28,11 @@ const addPathDb = async (pathData) => {
   const id = nanoid(10);
 
   const { rows } = await db.query(
-    `INSERT INTO "path" (id_path, name_path, description, peserta, peluang, levels, benefit, category, img_url, id_mentor)
-      VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) returning *`,
+    `INSERT INTO "path" (id_path, name_path, description, peserta, peluang, levels, benefit, category, img_url, id_mentor, price)
+      VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) returning *`,
     [id, pathData.namePath, pathData.desc, pathData.peserta, pathData.peluang,
       pathData.level, pathData.benefit, pathData.category,
-      pathData.imgUrl, pathData.idMentor],
+      pathData.imgUrl, pathData.idMentor, pathData.price],
   );
 
   return rows[0];

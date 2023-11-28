@@ -48,7 +48,7 @@ const AddTopic = () => {
     );
   }
 
-  if (userData.roles !== "mentor" || userData.id !== detailPath[0].id_mentor) {
+  if (userData.id !== detailPath[0].id_mentor) {
     return <Navigate to={state?.from || "/"} />;
   }
 
