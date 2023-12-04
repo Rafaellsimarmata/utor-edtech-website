@@ -45,9 +45,11 @@ export default function ProfilePage() {
           <Youtube />
         </div>
         <div className="button container">
-          {/* <button>button</button> */}
-          <Link className="link" to="/" onClick={() => logoutButton()}>
-            <button>Logout</button>
+          <Link className="edit-profile" to="/" onClick={() => logoutButton()}>
+            Edit
+          </Link>
+          <Link className="logout" to="/" onClick={() => logoutButton()}>
+            Logout
           </Link>
         </div>
       </section>

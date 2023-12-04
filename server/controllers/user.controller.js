@@ -30,15 +30,12 @@ const createUser = async (req, res) => {
 
 const getUserById = async (req, res) => {
   const { id } = req.params;
-  if (+id === req.user.id || req.user.roles.includes('mentor')) {
-    try {
-      const user = await userService.getUserById(id);
-      return res.status(200).json(user);
-    } catch (error) {
-      throw new ErrorHandler(error.statusCode, 'User not found');
-    }
+  try {
+    const user = await userService.getUserById(id);
+    return res.status(200).json(user);
+  } catch (error) {
+    return res.status(404).json({ message: 'user not found' });
   }
-  throw new ErrorHandler(401, 'Unauthorized');
 };
 
 const getUserProfile = async (req, res) => {

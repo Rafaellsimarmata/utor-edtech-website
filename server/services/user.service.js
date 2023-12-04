@@ -16,7 +16,6 @@ import { ErrorHandler } from '../helpers/error.js';
 class UserService {
   createUser = async (user) => {
     try {
-      console.log('Service');
       return await addUserDb(user);
     } catch (error) {
       throw new ErrorHandler(error.statusCode, error.message);

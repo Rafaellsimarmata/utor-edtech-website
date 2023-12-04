@@ -2,7 +2,7 @@
 /* eslint-disable class-methods-use-this */
 import {
   getAllPathDb, getDetailPathDb, getItemPathDb, getListMateriDb, addPathDb, addTopicPathDb,
-  addMateriTopicDb,
+  addMateriTopicDb, deleteTopicPathDb, getDetailTopicDb
 } from '../models/learnPage.db.js';
 
 import { ErrorHandler } from '../helpers/error.js';
@@ -19,6 +19,14 @@ class LearnPageService {
   getPathDetail = async (id) => {
     try {
       return await getDetailPathDb(id);
+    } catch (error) {
+      throw new ErrorHandler(error.statusCode, error.message);
+    }
+  };
+
+  getTopicDetail = async (id) => {
+    try {
+      return await getDetailTopicDb(id);
     } catch (error) {
       throw new ErrorHandler(error.statusCode, error.message);
     }
@@ -60,6 +68,14 @@ class LearnPageService {
   createMateriTopic = async (materiData) => {
     try {
       return await addMateriTopicDb(materiData);
+    } catch (error) {
+      throw new ErrorHandler(error.statusCode, error.message);
+    }
+  };
+
+  deleteTopic = async (idTopic) => {
+    try {
+      return await deleteTopicPathDb(idTopic);
     } catch (error) {
       throw new ErrorHandler(error.statusCode, error.message);
     }

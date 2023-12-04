@@ -19,6 +19,11 @@ const getItemPathDb = async (id) => {
   return items;
 };
 
+const getDetailTopicDb = async (id) => {
+  const { rows: items } = await db.query('SELECT * FROM topic WHERE id_topic = $1 ', [id]);
+  return items;
+};
+
 const getListMateriDb = async (id) => {
   const { rows: listMateri } = await db.query('SELECT * FROM list_materi WHERE id_topic = $1 ', [id]);
   return listMateri;
@@ -72,7 +77,28 @@ const orderPathDb = async (orderData) => {
   return rows[0];
 };
 
+const deleteTopicPathDb = async (idTopic) => {
+  console.log(idTopic);
+  const { rows: data } = await db.query(
+    'DELETE FROM topic WHERE id_topic = $1 ',
+    [idTopic],
+  );
+
+  const { rows: data2 } = await db.query(
+    'DELETE FROM list_materi WHERE id_topic = $1 ',
+    [idTopic],
+  );
+};
+
+const updateTopicPathDb = async (idTopic) => {
+  console.log(idTopic);
+  const { rows: data } = await db.query(
+    'DELETE FROM topic WHERE id_topic = $1 ',
+    [idTopic],
+  );
+};
+
 export {
   getAllPathDb, getDetailPathDb, getItemPathDb, getListMateriDb, addPathDb, addTopicPathDb,
-  addMateriTopicDb, orderPathDb,
+  addMateriTopicDb, orderPathDb, deleteTopicPathDb, getDetailTopicDb,
 };

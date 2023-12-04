@@ -46,7 +46,22 @@ main {
     color: white;
   }
 }
-.container-top button {
+
+.container-top .edit-profile {
+  padding: 10px 30px;
+  margin: 0px 5px;
+  border: 1px yellow solid;
+  color: yellow;
+  background-color: transparent;
+  transition-duration: 300ms;
+  cursor: pointer;
+}
+.container-top .edit-profile:hover {
+  color: rgb(0, 0, 0);
+  background-color: yellow;
+}
+
+.container-top .logout {
   padding: 10px 30px;
   margin: 0px 5px;
   border: 1px red solid;
@@ -55,7 +70,7 @@ main {
   transition-duration: 300ms;
   cursor: pointer;
 }
-.container-top button:hover {
+.container-top .logout:hover {
   color: rgb(0, 0, 0);
   background-color: red;
 }

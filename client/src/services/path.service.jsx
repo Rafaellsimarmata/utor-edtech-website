@@ -12,6 +12,9 @@ class PathService {
     return API.get(`/getDetailPath/${id}`);
   }
 
+  getDetailTopic(id) {
+    return API.get(`/getDetailTopic/${id}`);
+  }
   getItemsPathById(id) {
     return API.get(`/getItemPath/${id}`);
   }
@@ -38,10 +41,14 @@ class PathService {
 
   createMateriTopic(materiData, idTopic) {
     // console
-    console.log(materiData);
+
     return API.post(`/addMateriTopic/${idTopic}`, {
       ...materiData,
     });
+  }
+
+  getMentorData(idMentor) {
+    return API.get(`/users/${idMentor}`);
   }
 }
 

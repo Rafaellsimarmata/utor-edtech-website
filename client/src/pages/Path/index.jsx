@@ -3,8 +3,8 @@ import "./path.scss";
 import { SubCard, Spinner } from "../../components";
 import { Link, useParams } from "react-router-dom";
 import { useUser } from "../../context/userContext";
-import { usePath } from "../../context/pathContext";
 import { useOrder } from "../../context/orderContext";
+import { usePath } from "../../context/pathContext";
 import orderService from "../../services/order.service";
 import toast from "react-hot-toast";
 import { Coin } from "react-bootstrap-icons";
@@ -15,15 +15,17 @@ const profile =
 const Path = () => {
   const { id } = useParams();
   const { userData } = useUser();
-  const { detailPath, setPathId, itemsPath } = usePath();
   const { isRegistered, setidCurrPath, setIdUser } = useOrder();
+  const { detailPath, setPathId, itemsPath, setIdMentor, mentorData } =
+    usePath();
 
   setTimeout(() => {
     setPathId(id);
     setidCurrPath(id);
+    setIdMentor(detailPath[0].id_mentor);
   }, 0);
 
-  if (!detailPath || !detailPath[0] || !itemsPath || !userData) {
+  if (!detailPath || !detailPath[0] || !itemsPath || !userData || !mentorData) {
     return (
       <>
         <Spinner size={100} loading />
@@ -71,6 +73,7 @@ const Path = () => {
   };
 
   console.log(isRegistered);
+  console.log(mentorData);
 
   return (
     <>
@@ -123,9 +126,9 @@ const Path = () => {
             <div className="seller">
               <h2>About The Mentor</h2>
               <div className="user">
-                <img src={profile} alt="" />
+                <img src={mentorData.img_profile} alt="" />
                 <div className="info">
-                  <span>Vikas Parmar</span>
+                  <span>{mentorData.name}</span>
                   <div className="stars">
                     <img src="/img/star.png" alt="" />
                     <img src="/img/star.png" alt="" />
@@ -135,46 +138,23 @@ const Path = () => {
                     <span>5</span>
                   </div>
                   <Link to="https://vikas-parmar.github.io/" target="_blank">
-                    <button>Contact Me</button>
+                    <button>View Profile</button>
                   </Link>
                 </div>
               </div>
               <div className="box">
                 <div className="items">
                   <div className="item">
-                    <span className="title">From</span>
-                    <span className="desc">India</span>
-                  </div>
-                  <div className="item">
-                    <span className="title">Member since</span>
-                    <span className="desc">May 2023</span>
-                  </div>
-                  <div className="item">
-                    <span className="title">Avg. response time</span>
-                    <span className="desc">4 hours</span>
-                  </div>
-                  <div className="item">
-                    <span className="title">Last delivery</span>
-                    <span className="desc">1 day</span>
+                    <span className="title">Email : </span>
+                    <span className="desc">{mentorData.email}</span>
                   </div>
                   <div className="item">
                     <span className="title">Languages</span>
-                    <span className="desc">Hindi, English</span>
+                    <span className="desc">Indonesia, English</span>
                   </div>
                 </div>
                 <hr />
-                <p>
-                  Hi there! I am a frontend developer with expertise in HTML,
-                  CSS, and JavaScript, and I am looking for exciting projects to
-                  work on. I specialize in creating stunning and user-friendly
-                  interfaces that enhance the user experience and help
-                  businesses achieve their goals. <br />
-                  <br />I take pride in my attention to detail and commitment to
-                  excellence, ensuring that I deliver high-quality work on time
-                  and within budget. Whether you need a simple landing page or a
-                  complex web application, I have the skills and experience to
-                  bring your digital vision to life.
-                </p>
+                <p>{mentorData.description}</p>
               </div>
             </div>
             <div className="reviews">
@@ -405,10 +385,13 @@ const Path = () => {
             )}
           </h1>
           <p>Explore materi yang diberikan oleh mentor ini.</p>
-          <div id="addTopicPath"></div>
           <div className="cards">
             {itemsPath.map((item) => (
-              <SubCard key={item.id_topic} item={item} />
+              <SubCard
+                key={item.id_topic}
+                item={item}
+                isRegistered={isRegistered}
+              />
             ))}
           </div>
         </div>

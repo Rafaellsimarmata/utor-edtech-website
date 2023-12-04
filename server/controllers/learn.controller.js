@@ -20,6 +20,17 @@ const getDetailPath = async (req, res) => {
   }
 };
 
+const getTopicDetail = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const pathDetail = await learnPageService.getPathDetail(id);
+    return res.status(200).json(pathDetail);
+  } catch (error) {
+    throw new ErrorHandler(error.statusCode, 'Error fetching data');
+  }
+};
+
 const getItemsPath = async (req, res) => {
   const { id } = req.params;
 
@@ -97,7 +108,17 @@ const createMateriTopic = async (req, res) => {
   }
 };
 
+const deleteTopic = async (req, res) => {
+  const { idTopic } = req.body;
+  try {
+    await learnPageService.deleteTopic(idTopic);
+    return res.status(200);
+  } catch (error) {
+    throw new ErrorHandler(error.statusCode, 'Error adding data');
+  }
+};
+
 export {
   learnPath, getDetailPath, getItemsPath, getListMateri, createPath, createTopicPath,
-  createMateriTopic,
+  createMateriTopic, deleteTopic, getTopicDetail,
 };

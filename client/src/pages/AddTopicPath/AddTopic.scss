@@ -46,6 +46,7 @@
       }
 
       .gigCard {
+        pointer-events: none;
         .info {
           button {
             background-color: red;

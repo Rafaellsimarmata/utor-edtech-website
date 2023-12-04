@@ -3,18 +3,26 @@ import { Link } from "react-router-dom";
 import "./subCard.scss";
 import { BookHalf } from "react-bootstrap-icons";
 
-const SubCard = ({ item }) => {
+const SubCard = ({ isRegistered, item }) => {
   const hrefLink = `/learn/${item.id_topic}`;
+
   return (
     <Link to={hrefLink} className="link">
       <div className="gigCard">
         <img src={item.img_url} alt="" />
         <div className="info">
           <h3>{item.judul}</h3>
-          <p>{item.desc_topic}</p>
+          <p>{item.desc_topic.substring(0, 90)}...</p>
           <div className="star">
-            <BookHalf />
-            <span id="total">Total Materi : 3</span>
+            <div className="ket">
+              <BookHalf />
+              <span id="total">Total Materi : 3</span>
+            </div>
+            {item.ispremium ? (
+              <p style={{ backgroundColor: "yellow" }}> Premium</p>
+            ) : (
+              <p style={{ backgroundColor: "#88f549" }}> Free</p>
+            )}
           </div>
         </div>
         <hr />

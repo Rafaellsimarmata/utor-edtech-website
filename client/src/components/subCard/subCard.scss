@@ -45,15 +45,28 @@
     .star {
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 25px;
 
-      #total {
-        color: black;
+      .ket {
+        display: flex;
+        align-items: start;
+        gap: 5px;
+        #total {
+          color: black;
+        }
       }
 
       img {
         height: 14px;
         width: 14px;
+      }
+
+      p {
+        align-items: end;
+        border: 1px solid black;
+        border-radius: 10px;
+        padding: 5px;
+        color: black;
       }
 
       span {
@@ -213,7 +226,6 @@
     }
   }
 }
-
 
 a {
   text-decoration: none;

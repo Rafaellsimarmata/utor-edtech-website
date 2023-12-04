@@ -6,24 +6,40 @@ import { usePath } from "../../context/pathContext";
 import ReactPlayer from "react-player/youtube";
 import LearnVideoCard from "../../components/LearnVideoCard";
 import { useEffect, useState } from "react";
+import { useUser } from "../../context/userContext";
+import { useOrder } from "../../context/orderContext";
 
 const profile =
   "https://raw.githubusercontent.com/vikas-parmar/vikas-parmar.github.io/main/assets/portrait-1.png";
 
 const Learn = () => {
-  const { listMateri, setIdTopic } = usePath();
+  const { listMateri, setIdTopic, detailTopic } = usePath();
   const { id } = useParams();
+  const { userData } = useUser();
+  const { isRegistered, setidCurrPath, setIdUser } = useOrder();
 
   setTimeout(() => {
     setIdTopic(id);
   }, 0);
 
-  if (!listMateri || !listMateri[0]) {
+  if (!listMateri || !listMateri[0] || !detailTopic || !userData) {
     return (
       <>
         <Spinner size={100} loading />
       </>
     );
+  }
+
+  setTimeout(() => {
+    setidCurrPath(detailTopic.id_topic);
+    setIdUser(userData.id);
+  }, 0);
+
+  console.log(!isRegistered);
+  console.log(detailTopic);
+
+  if (!isRegistered && detailTopic.ispremium) {
+    alert("Anda tidak terdaftar, silahkan lakukan registrasi terlebih dahulu");
   }
 
   // console.log(listMateri);

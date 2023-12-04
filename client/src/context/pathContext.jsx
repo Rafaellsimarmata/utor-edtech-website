@@ -12,12 +12,21 @@ const PathProvider = ({ children }) => {
   const [pathId, setPathId] = useState(null);
   const [listMateri, setListMateri] = useState(null);
   const [idTopic, setIdTopic] = useState(null);
+  const [detailTopic, setDetailTopic] = useState(null);
+  const [idMentor, setIdMentor] = useState(null);
+  const [mentorData, setMentorData] = useState(null);
 
   useEffect(() => {
     pathService.getPathAll().then((response) => {
       setPath(response.data);
     });
   }, []);
+
+  useEffect(() => {
+    pathService.getMentorData(idMentor).then((response) => {
+      setMentorData(response.data);
+    });
+  }, [idMentor]);
 
   useEffect(() => {
     pathService.getPathById(pathId).then((response) => {
@@ -37,9 +46,21 @@ const PathProvider = ({ children }) => {
     });
   }, [idTopic]);
 
+  useEffect(() => {
+    pathService.getDetailTopic(idTopic).then((response) => {
+      setDetailTopic(response.data);
+    });
+  }, [idTopic]);
+
   return (
     <PathContext.Provider
       value={{
+        detailTopic,
+        setDetailTopic,
+        idMentor,
+        setIdMentor,
+        mentorData,
+        setMentorData,
         Path,
         setPath,
         detailPath,
