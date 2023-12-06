@@ -4,10 +4,16 @@ import "./subCard.scss";
 import { BookHalf } from "react-bootstrap-icons";
 
 const SubCard = ({ isRegistered, item }) => {
-  const hrefLink = `/learn/${item.id_topic}`;
+  const redirectPage = () => {
+    if (!isRegistered && item.ispremium) {
+      alert("Anda belum terdaftar, Silahkan lakukan pendaftaran kelas");
+    } else {
+      window.location = `/learn/${item.id_topic}`;
+    }
+  };
 
   return (
-    <Link to={hrefLink} className="link">
+    <Link onClick={redirectPage} className="link">
       <div className="gigCard">
         <img src={item.img_url} alt="" />
         <div className="info">
