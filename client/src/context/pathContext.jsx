@@ -15,6 +15,7 @@ const PathProvider = ({ children }) => {
   const [detailTopic, setDetailTopic] = useState(null);
   const [idMentor, setIdMentor] = useState(null);
   const [mentorData, setMentorData] = useState(null);
+  const [reviewsData, setReviewsData] = useState(null);
 
   useEffect(() => {
     pathService.getPathAll().then((response) => {
@@ -31,6 +32,13 @@ const PathProvider = ({ children }) => {
   useEffect(() => {
     pathService.getPathById(pathId).then((response) => {
       setDetailPath(response.data);
+    });
+  }, [pathId]);
+
+  //
+  useEffect(() => {
+    pathService.getReviewsData(pathId).then((response) => {
+      setReviewsData(response.data);
     });
   }, [pathId]);
 
@@ -55,6 +63,8 @@ const PathProvider = ({ children }) => {
   return (
     <PathContext.Provider
       value={{
+        reviewsData,
+        setReviewsData,
         detailTopic,
         setDetailTopic,
         idMentor,

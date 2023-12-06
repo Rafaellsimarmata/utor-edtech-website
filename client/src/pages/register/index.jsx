@@ -73,7 +73,6 @@ const LoginPage = () => {
       setIsLoading(false);
       toast.error(`${error.response?.data.message}`);
       setError(error.response?.data.message);
-      console.log(error.response?.data.message);
     }
   };
 

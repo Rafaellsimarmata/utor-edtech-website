@@ -35,10 +35,18 @@ const createAccount = async (req, res) => {
 
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
-  const { token, refreshToken, user } = await authService.login(
+  const {
+    error, message, token, refreshToken, user,
+  } = await authService.login(
     email,
     password,
   );
+
+  if (error) {
+    return res.status(403).json({
+      message,
+    });
+  }
 
   res.header('auth-token', token);
   res.cookie('refreshToken', refreshToken, {

@@ -93,11 +93,17 @@ class AuthService {
       const user = await getUserByEmailDb(email);
 
       if (!user) {
-        throw new ErrorHandler(403, 'Email or password incorrect.');
+        return {
+          error: true,
+          message: 'Email or password incorrect.',
+        };
       }
 
       if (user.google_id && !user.password) {
-        throw new ErrorHandler(403, 'Login in with Google');
+        return {
+          error: true,
+          message: 'Login in with Google',
+        };
       }
 
       const {
@@ -109,7 +115,10 @@ class AuthService {
       const isCorrectPassword = await bcrypt.compare(password, dbPassword);
 
       if (!isCorrectPassword) {
-        throw new ErrorHandler(403, 'Email or password incorrect.');
+        return {
+          error: true,
+          message: 'Email or password incorrect.',
+        };
       }
 
       const token = await this.signToken({ id, roles });

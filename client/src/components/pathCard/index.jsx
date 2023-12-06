@@ -12,8 +12,8 @@ const PathCard = ({ item, id_path }) => {
         <img src={item.img_url} alt="" />
         <div className="info">
           <div className="user">
-            <img src={item.pp} alt="" />
-            <span>{item.username}</span>
+            <img src={item.img_mentor} alt="" />
+            <span>{item.nama_mentor}</span>
           </div>
           <h3>{item.name_path}</h3>
           <p>{item.description.substring(0, 60)}...</p>

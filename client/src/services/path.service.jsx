@@ -40,8 +40,6 @@ class PathService {
   }
 
   createMateriTopic(materiData, idTopic) {
-    // console
-
     return API.post(`/addMateriTopic/${idTopic}`, {
       ...materiData,
     });
@@ -49,6 +47,19 @@ class PathService {
 
   getMentorData(idMentor) {
     return API.get(`/users/${idMentor}`);
+  }
+
+  createReview(dataComment, userData, id) {
+    return API.post(`/add-review/${id}`, {
+      idUser: userData.id,
+      review: dataComment,
+      namaUser: userData.name,
+      imgUser: userData.img_profile,
+    });
+  }
+
+  getReviewsData(id) {
+    return API.get(`/get-review/${id}`);
   }
 }
 

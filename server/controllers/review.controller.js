@@ -6,13 +6,15 @@ const createReview = async (req, res) => {
   const { id } = req.params;
 
   const {
-    idUser, review,
+    idUser, review, namaUser, imgUser,
   } = req.body;
 
   const reviewData = await reviewService.addReview({
     idPath: id,
     idUser,
     review,
+    namaUser,
+    imgUser,
   });
 
   res.status(201).json({

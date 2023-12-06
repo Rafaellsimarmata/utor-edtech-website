@@ -10,6 +10,6 @@ import {
 const routers = Router();
 
 routers.post('/add-review/:id', createReview);
-routers.post('/get-review/:id', getReviewsPath);
+routers.get('/get-review/:id', getReviewsPath);
 
 export default routers;

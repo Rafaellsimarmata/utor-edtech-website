@@ -4,10 +4,13 @@ import { SubCard, Spinner } from "../../components";
 import { Link, useParams } from "react-router-dom";
 import { useUser } from "../../context/userContext";
 import { useOrder } from "../../context/orderContext";
+import { useState } from "react";
 import { usePath } from "../../context/pathContext";
 import orderService from "../../services/order.service";
 import toast from "react-hot-toast";
 import { Coin } from "react-bootstrap-icons";
+import pathService from "../../services/path.service";
+import { ReviewSec } from "../../components";
 
 const profile =
   "https://raw.githubusercontent.com/vikas-parmar/vikas-parmar.github.io/main/assets/portrait-1.png";
@@ -15,9 +18,16 @@ const profile =
 const Path = () => {
   const { id } = useParams();
   const { userData } = useUser();
+  const [dataComment, setDataComment] = useState(null);
   const { isRegistered, setidCurrPath, setIdUser } = useOrder();
-  const { detailPath, setPathId, itemsPath, setIdMentor, mentorData } =
-    usePath();
+  const {
+    detailPath,
+    setPathId,
+    itemsPath,
+    setIdMentor,
+    mentorData,
+    reviewsData,
+  } = usePath();
 
   setTimeout(() => {
     setPathId(id);
@@ -25,7 +35,14 @@ const Path = () => {
     setIdMentor(detailPath[0].id_mentor);
   }, 0);
 
-  if (!detailPath || !detailPath[0] || !itemsPath || !userData || !mentorData) {
+  if (
+    !detailPath ||
+    !detailPath[0] ||
+    !itemsPath ||
+    !userData ||
+    !mentorData ||
+    !reviewsData
+  ) {
     return (
       <>
         <Spinner size={100} loading />
@@ -37,17 +54,25 @@ const Path = () => {
     setIdUser(userData.id);
   }, 0);
 
-  // if (!isRegistered) {
-  //   return (
-  //     <>
-  //       <Spinner size={100} loading />
-  //     </>
-  //   );
-  // }
-
   let isMentor;
   if (userData.id === detailPath[0].id_mentor) isMentor = true;
   else isMentor = false;
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const reviewData = await pathService.createReview(
+        dataComment,
+        userData,
+        id
+      );
+      console.log(reviewData);
+      toast.success("comment created successfully");
+    } catch (error) {
+      console.log(error.response?.data.message);
+    }
+  };
 
   const regisClass = async () => {
     try {
@@ -72,18 +97,13 @@ const Path = () => {
     }
   };
 
-  console.log(isRegistered);
-  console.log(mentorData);
+  console.log(reviewsData);
 
   return (
     <>
       <div className="gig">
         <div className="container">
           <div className="left">
-            <span className="breadcrumbs">
-              Fiverr / Programming & Tech / Website Development / Custom
-              Websites
-            </span>
             <h1>{detailPath[0].name_path}</h1>
             <div className="user">
               <img className="pp" src={profile} alt="" />
@@ -159,7 +179,25 @@ const Path = () => {
             </div>
             <div className="reviews">
               <h2>Reviews</h2>
-              <div className="item">
+              <div className="review-box">
+                <form onSubmit={handleSubmit} method="post">
+                  <textarea
+                    name="comment"
+                    id="comment"
+                    cols="120"
+                    rows="10"
+                    placeholder="Type Your Comment"
+                    onChange={(event) => setDataComment(event.target.value)}
+                  ></textarea>
+                  <br />
+                  <button type="submit">submit</button>
+                </form>
+              </div>
+              {reviewsData.map((item) => (
+                <ReviewSec key={item.id_chat} item={item} />
+              ))}
+
+              {/* <div className="item">
                 <div className="user">
                   <img
                     className="pp"
@@ -286,7 +324,7 @@ const Path = () => {
                   <img src="/img/dislike.png" alt="" />
                   <span>No</span>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
           {!isMentor ? (

@@ -10,7 +10,6 @@ import pathService from "../../services/path.service";
 const Add = () => {
   const { userData } = useUser();
   const [redirectToReferrer, setRedirectToReferrer] = useState(false);
-  const [image, setImage] = useState(null);
   const { state } = useLocation();
   const [data, setData] = useState({
     namePath: "",
