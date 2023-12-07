@@ -1,13 +1,9 @@
 import pg from 'pg';
 
-const { Client } = pg;
+const { Pool } = pg;
 
-const db = new Client({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'db_hub',
-  password: 'admin',
-  port: 5432,
+const db = new Pool({
+  connectionString: `${process.env.POSTGRES_URL}?sslmode=require`,
 });
 
 export default db;
