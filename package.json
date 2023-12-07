@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "cd client && npm install --force && cd ../server && npm install",
+    "install": "cd client && npm install --force && cd ../server && npm install",
     "start": "npm run server && npm run client",
     "server": "cd server && npm run start",
     "client": "cd client && npm run build"
