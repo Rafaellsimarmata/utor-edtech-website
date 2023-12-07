@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "vite",
+    "vite": "vite",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
@@ -48,5 +48,5 @@
     "react-error-overlay": "^6.0.9",
     "vite": "^4.4.5"
   },
-  "proxy": "utor-server.vercel.app"
+  "proxy": "http://localhost:3009"
 }
