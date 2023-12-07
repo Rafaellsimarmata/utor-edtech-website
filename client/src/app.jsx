@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes, Outlet } from "react-router-dom";
 import { Suspense } from "react";
 import { Toaster } from "react-hot-toast";
 import { Footer, Navbar } from "./components";
-import { ProtectedRoute } from "./routes/protectedRoutes";
+import { ProtectedRoute } from "./routes/protectedRoutes.jsx";
 import {
   Home,
   Paths,
