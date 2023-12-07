@@ -36,21 +36,6 @@ app.use('/api', routes);
 app.use(unknownEndPoint);
 app.use(handleError);
 
-// app.configure(() => {
-//   // app.set('port', process.env.port || 3000);
-//   // app.set('views', `${__dirname}/app/server/views`);
-//   // app.set('view engine', 'jade');
-//   // app.locals.pretty = true;
-//   // app.use(express.favicon());
-//   app.use(express.bodyParser({ keepExtensions: true, uploadDir: `${__dirname}/app/uploads` }));
-//   app.use(express.methodOverride());
-//   app.use(express.cookieParser());
-//   app.use(express.session({ secret: 'super-duper-secret-secret' }));
-//   // app.use(app.router);
-//   // app.use(require('stylus').middleware({ src: `${__dirname}/app/public` }));
-//   app.use(express.static(`${__dirname}/app/public`));
-// });
-
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
