@@ -18,7 +18,7 @@ import {
   AddTopicPath,
   MyClass,
   ProfilePage,
-} from "./pages";
+} from "./pages/index.js";
 
 const Layout = () => {
   return (
