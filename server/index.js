@@ -22,11 +22,9 @@ db.connect((err) => {
 app.use(fileUpload({ safeFileNames: true, preserveExtension: true }));
 
 // To prevent CORS errors
-app.set('trust proxy', 1);
-app.use(cors({ credentials: true, origin: '*' }));
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  // res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   next();
 });
 app.use(bodyParser.json());
