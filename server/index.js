@@ -32,10 +32,6 @@ app.use((req, res, next) => {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use('/', (req, res) => {
-  res.send('server running');
-});
-
 app.use('/api', routes);
 app.use(unknownEndPoint);
 app.use(handleError);
