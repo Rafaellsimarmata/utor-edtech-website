@@ -18,7 +18,7 @@ import {
 
 const routers = Router();
 
-routers.use(cors({ credentials: true, origin: 'http://localhost:5173' }));
+routers.use(cors({ credentials: true, origin: 'https://utor-web.vercel.app/' }));
 routers.use((req, res, next) => {
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   next();
